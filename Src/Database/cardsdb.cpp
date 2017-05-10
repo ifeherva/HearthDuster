@@ -64,3 +64,11 @@ int CardsDb::InitFromFile(const QString& cardsDbFile) {
 
     return CARDSDBERROR_NOERROR;
 }
+
+const Card* CardsDb::CardForId(const QString& id)
+{
+    if (instance->cardsmap.contains(id)) {
+        return instance->cardsmap[id];
+    }
+    return NULL;
+}

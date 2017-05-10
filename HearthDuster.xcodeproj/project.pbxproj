@@ -1,0 +1,621 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		4D13C62D3C62C4E382CFFCA7 /* Qt Preprocess */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "HearthDuster" */;
+			buildPhases = (
+				5E618435888B9D49F8540165 /* Qt Qmake */,
+				7EF0942E79C014DCEC8976BC /* Qt Preprocessors */,
+			);
+			dependencies = (
+			);
+			name = "Qt Preprocess";
+			productName = "Qt Preprocess";
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		1F326E34D3EF02C46BD16E5D /* collection.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = A06213BD2669211E7F804C02 /* collection.cpp */; settings = {ATTRIBUTES = (); }; };
+		5B1E7C8D66CF902D9CA35C77 /* HearthMirror in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4B4219A59D523A20A21C7430 /* HearthMirror */; };
+		64ED3A574007829571A03CAD /* QtCore.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 4F8D188FE2131008D16714A9 /* QtCore.framework */; };
+		766079B2DDF9611CD8169F14 /* moc_mainwindow.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = AF89B61A65FBF7AB827D2C66 /* moc_mainwindow.cpp */; settings = {ATTRIBUTES = (); }; };
+		8771A8C96E9C391044035D99 /* OpenGL.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = D4B32C2222F82AC56BADEB21 /* OpenGL.framework */; };
+		8D267F2E4776F0ECA2F49DC8 /* IOKit.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = A1A67BEAA744704B29168D39 /* IOKit.framework */; };
+		9A74BC9904E04EF371CC2C93 /* dummy.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 98F4CEB8E251DCBCC3FC6824 /* dummy.cpp */; settings = {ATTRIBUTES = (); }; };
+		A8ED34A414CD631C48C8B1BF /* cardsdb.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = A3299F58D1771BB705BC05E0 /* cardsdb.cpp */; settings = {ATTRIBUTES = (); }; };
+		A99B2AA0F9CBBDD12BA126A4 /* DiskArbitration.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */; };
+		B9884937470D6F8CDAF2545B /* duststrategy.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = EE247DDB47C11AD053276DEF /* duststrategy.cpp */; settings = {ATTRIBUTES = (); }; };
+		BBD3E556AEAC2B8D82CFDD03 /* card.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 3666CFE827EA7C72389F3A01 /* card.cpp */; settings = {ATTRIBUTES = (); }; };
+		BC14E5931EC2619B008693DE /* libHearthMirror.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC14E5901EC2614C008693DE /* libHearthMirror.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		BC14E5961EC263E6008693DE /* Cards in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC14E5951EC263E6008693DE /* Cards */; };
+		BECF3DEC2BA93ED80483FB49 /* qrc_resources.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 24952ECC814A3D4A507E8185 /* qrc_resources.cpp */; settings = {ATTRIBUTES = (); }; };
+		BF2CE18928ECDFD4BD3FD2A0 /* macutils.mm in Compile Sources */ = {isa = PBXBuildFile; fileRef = 6552252A9FAF13F51F32AE7C /* macutils.mm */; settings = {ATTRIBUTES = (); }; };
+		CE47D2E081B09DBE7D29F405 /* QtWidgets.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = F5B8AEA45ADCEBC1D01D082F /* QtWidgets.framework */; };
+		D91750B0F6F5EB7201ACCBAB /* QtGui.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 2D906B2EC54EEECA3CA4BD68 /* QtGui.framework */; };
+		E45E51A644D5FC9F942ECE55 /* AGL.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */; };
+		F2A75ACAC9DF6A3F4E5711E7 /* AppKit.framework in Link Binary With Libraries */ = {isa = PBXBuildFile; fileRef = 723F90793B2C195E2CCB2233 /* AppKit.framework */; };
+		F90C8767867F508B65C9A0D7 /* main.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = C5E2FDFD3D3F1A3C19B3102F /* main.cpp */; settings = {ATTRIBUTES = (); }; };
+		FDA403272FACF6671820AA9F /* mainwindow.cpp in Compile Sources */ = {isa = PBXBuildFile; fileRef = 4D05B6B1421666FA8A8C68C5 /* mainwindow.cpp */; settings = {ATTRIBUTES = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BC14E58F1EC25FAD008693DE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DB9C3763D02B1415CD9D565 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D13C62D3C62C4E382CFFCA7;
+			remoteInfo = "Qt Preprocess";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		BC14E5921EC2618D008693DE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				BC14E5931EC2619B008693DE /* libHearthMirror.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BC14E5941EC263C9008693DE /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+				BC14E5961EC263E6008693DE /* Cards in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		155CB4EBAEC2C5636B845230 /* mainwindow.ui */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = mainwindow.ui; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/GUI/mainwindow.ui; sourceTree = "<absolute>"; };
+		24952ECC814A3D4A507E8185 /* qrc_resources.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = qrc_resources.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/qrc_resources.cpp; sourceTree = "<absolute>"; };
+		25B405DA8152646A597D8FAA /* cardsdb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = cardsdb.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/Database/cardsdb.h; sourceTree = "<absolute>"; };
+		2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = /System/Library/Frameworks/DiskArbitration.framework; sourceTree = "<absolute>"; };
+		2D906B2EC54EEECA3CA4BD68 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = /Users/Haibane/Qt5.8.0/5.8/clang_64/lib/QtGui.framework; sourceTree = "<absolute>"; };
+		3666CFE827EA7C72389F3A01 /* card.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = card.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/Database/card.cpp; sourceTree = "<absolute>"; };
+		4B4219A59D523A20A21C7430 /* HearthMirror */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = HearthMirror; path = /Users/Haibane/Works/HearthDuster/HearthDuster/libs/HearthMirror/libHearthMirror.dylib; sourceTree = "<absolute>"; };
+		4D05B6B1421666FA8A8C68C5 /* mainwindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = mainwindow.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/GUI/mainwindow.cpp; sourceTree = "<absolute>"; };
+		4F8D188FE2131008D16714A9 /* QtCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtCore.framework; path = /Users/Haibane/Qt5.8.0/5.8/clang_64/lib/QtCore.framework; sourceTree = "<absolute>"; };
+		6552252A9FAF13F51F32AE7C /* macutils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = macutils.mm; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/utils/macutils.mm; sourceTree = "<absolute>"; };
+		660BAD1BE6F3DA782153A0C3 /* resources.qrc */ = {isa = PBXFileReference; lastKnownFileType = text; name = resources.qrc; path = /Users/Haibane/Works/HearthDuster/HearthDuster/resources.qrc; sourceTree = "<absolute>"; };
+		723F90793B2C195E2CCB2233 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		7FB53FFA011D7D9F2B882711 /* card.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = card.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/Database/card.h; sourceTree = "<absolute>"; };
+		8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = /System/Library/Frameworks/AGL.framework; sourceTree = "<absolute>"; };
+		98F4CEB8E251DCBCC3FC6824 /* dummy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = dummy.cpp; path = /Users/Haibane/Qt5.8.0/5.8/clang_64/mkspecs/features/data/dummy.cpp; sourceTree = "<absolute>"; };
+		A06213BD2669211E7F804C02 /* collection.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = collection.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/collection.cpp; sourceTree = "<absolute>"; };
+		A13C68548B38CB89B19BDE89 /* collection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = collection.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/collection.h; sourceTree = "<absolute>"; };
+		A1A67BEAA744704B29168D39 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = /System/Library/Frameworks/IOKit.framework; sourceTree = "<absolute>"; };
+		A3299F58D1771BB705BC05E0 /* cardsdb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = cardsdb.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/Database/cardsdb.cpp; sourceTree = "<absolute>"; };
+		AF89B61A65FBF7AB827D2C66 /* moc_mainwindow.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = moc_mainwindow.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/moc_mainwindow.cpp; sourceTree = "<absolute>"; };
+		BC14E5901EC2614C008693DE /* libHearthMirror.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libHearthMirror.dylib; path = libs/HearthMirror/libHearthMirror.dylib; sourceTree = "<group>"; };
+		BC14E5951EC263E6008693DE /* Cards */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Cards; path = Resources/Cards; sourceTree = "<group>"; };
+		C5E2FDFD3D3F1A3C19B3102F /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/main.cpp; sourceTree = "<absolute>"; };
+		C8F5F1D4D2C13396E09BCA16 /* ui_mainwindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ui_mainwindow.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/ui_mainwindow.h; sourceTree = "<absolute>"; };
+		CE0B819E16269B71BF220746 /* HearthDuster.pro */ = {isa = PBXFileReference; lastKnownFileType = text; name = HearthDuster.pro; path = /Users/Haibane/Works/HearthDuster/HearthDuster/HearthDuster.pro; sourceTree = "<absolute>"; };
+		D4B32C2222F82AC56BADEB21 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = /System/Library/Frameworks/OpenGL.framework; sourceTree = "<absolute>"; };
+		EC75F2B57342D8E39AB37087 /* mainwindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = mainwindow.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/GUI/mainwindow.h; sourceTree = "<absolute>"; };
+		EE247DDB47C11AD053276DEF /* duststrategy.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = duststrategy.cpp; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/duststrategy.cpp; sourceTree = "<absolute>"; };
+		F3FD78D7CCBB63B32E76D56E /* HearthDuster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HearthDuster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F5B8AEA45ADCEBC1D01D082F /* QtWidgets.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtWidgets.framework; path = /Users/Haibane/Qt5.8.0/5.8/clang_64/lib/QtWidgets.framework; sourceTree = "<absolute>"; };
+		FAE29E71AA8CD17210314238 /* duststrategy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = duststrategy.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/duststrategy.h; sourceTree = "<absolute>"; };
+		FE6C01A0D2943C552272D222 /* macutils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = macutils.h; path = /Users/Haibane/Works/HearthDuster/HearthDuster/Src/utils/macutils.h; sourceTree = "<absolute>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D1C883685E82D5676953459A /* Link Binary With Libraries */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F2A75ACAC9DF6A3F4E5711E7 /* AppKit.framework in Link Binary With Libraries */,
+				5B1E7C8D66CF902D9CA35C77 /* HearthMirror in Link Binary With Libraries */,
+				CE47D2E081B09DBE7D29F405 /* QtWidgets.framework in Link Binary With Libraries */,
+				D91750B0F6F5EB7201ACCBAB /* QtGui.framework in Link Binary With Libraries */,
+				64ED3A574007829571A03CAD /* QtCore.framework in Link Binary With Libraries */,
+				A99B2AA0F9CBBDD12BA126A4 /* DiskArbitration.framework in Link Binary With Libraries */,
+				8D267F2E4776F0ECA2F49DC8 /* IOKit.framework in Link Binary With Libraries */,
+				8771A8C96E9C391044035D99 /* OpenGL.framework in Link Binary With Libraries */,
+				E45E51A644D5FC9F942ECE55 /* AGL.framework in Link Binary With Libraries */,
+			);
+			name = "Link Binary With Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0CD3931FE4BD31442D6C696E /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				6552252A9FAF13F51F32AE7C /* macutils.mm */,
+				FE6C01A0D2943C552272D222 /* macutils.h */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		12E908B8A1C3C07C115504F5 /* Sources [uic] */ = {
+			isa = PBXGroup;
+			children = (
+				E27EB93026AE0B5F04BB647D /* Src */,
+			);
+			name = "Sources [uic]";
+			sourceTree = "<group>";
+		};
+		25B08E2869634E9BCBA333A2 /* Generated Sources */ = {
+			isa = PBXGroup;
+			children = (
+				24952ECC814A3D4A507E8185 /* qrc_resources.cpp */,
+				AF89B61A65FBF7AB827D2C66 /* moc_mainwindow.cpp */,
+				C8F5F1D4D2C13396E09BCA16 /* ui_mainwindow.h */,
+			);
+			name = "Generated Sources";
+			sourceTree = "<group>";
+		};
+		2EB56BE3C2D93CDAB0C52E67 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				A685E91D2A752708AE4EEB8C /* Src */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		55CEAC03347A7011C81BFD64 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				4D05B6B1421666FA8A8C68C5 /* mainwindow.cpp */,
+				EC75F2B57342D8E39AB37087 /* mainwindow.h */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		74B182DB50CB5611B5C1C297 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				CE0B819E16269B71BF220746 /* HearthDuster.pro */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8504A923F64C9AB51FF7CE26 /* GUI */ = {
+			isa = PBXGroup;
+			children = (
+				155CB4EBAEC2C5636B845230 /* mainwindow.ui */,
+			);
+			name = GUI;
+			sourceTree = "<group>";
+		};
+		87DF60DE337FB58864343E39 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				660BAD1BE6F3DA782153A0C3 /* resources.qrc */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		A685E91D2A752708AE4EEB8C /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				C5E2FDFD3D3F1A3C19B3102F /* main.cpp */,
+				55CEAC03347A7011C81BFD64 /* GUI */,
+				B2A16E0668B72CA508B32368 /* Database */,
+				A06213BD2669211E7F804C02 /* collection.cpp */,
+				EE247DDB47C11AD053276DEF /* duststrategy.cpp */,
+				0CD3931FE4BD31442D6C696E /* utils */,
+				A13C68548B38CB89B19BDE89 /* collection.h */,
+				FAE29E71AA8CD17210314238 /* duststrategy.h */,
+			);
+			name = Src;
+			sourceTree = "<group>";
+		};
+		AF39DD055C3EF8226FBE929D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				723F90793B2C195E2CCB2233 /* AppKit.framework */,
+				4B4219A59D523A20A21C7430 /* HearthMirror */,
+				F5B8AEA45ADCEBC1D01D082F /* QtWidgets.framework */,
+				2D906B2EC54EEECA3CA4BD68 /* QtGui.framework */,
+				4F8D188FE2131008D16714A9 /* QtCore.framework */,
+				2B774D8E4178765CE52EAAF5 /* DiskArbitration.framework */,
+				A1A67BEAA744704B29168D39 /* IOKit.framework */,
+				D4B32C2222F82AC56BADEB21 /* OpenGL.framework */,
+				8D9815BDB5BD9F90D2BC05C5 /* AGL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B2A16E0668B72CA508B32368 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				A3299F58D1771BB705BC05E0 /* cardsdb.cpp */,
+				3666CFE827EA7C72389F3A01 /* card.cpp */,
+				25B405DA8152646A597D8FAA /* cardsdb.h */,
+				7FB53FFA011D7D9F2B882711 /* card.h */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		B8254625CFD509ED2A24A166 /* Sources [moc_predefs] */ = {
+			isa = PBXGroup;
+			children = (
+				98F4CEB8E251DCBCC3FC6824 /* dummy.cpp */,
+			);
+			name = "Sources [moc_predefs]";
+			sourceTree = "<group>";
+		};
+		E27EB93026AE0B5F04BB647D /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				8504A923F64C9AB51FF7CE26 /* GUI */,
+			);
+			name = Src;
+			sourceTree = "<group>";
+		};
+		E8C543AB96796ECAA2E65C57 /* HearthDuster */ = {
+			isa = PBXGroup;
+			children = (
+				BC14E5951EC263E6008693DE /* Cards */,
+				BC14E5901EC2614C008693DE /* libHearthMirror.dylib */,
+				2EB56BE3C2D93CDAB0C52E67 /* Sources */,
+				25B08E2869634E9BCBA333A2 /* Generated Sources */,
+				74B182DB50CB5611B5C1C297 /* Supporting Files */,
+				87DF60DE337FB58864343E39 /* Resources */,
+				B8254625CFD509ED2A24A166 /* Sources [moc_predefs] */,
+				12E908B8A1C3C07C115504F5 /* Sources [uic] */,
+				AF39DD055C3EF8226FBE929D /* Frameworks */,
+				FE0A091FDBFB3E9C31B7A1BD /* Products */,
+			);
+			name = HearthDuster;
+			sourceTree = "<group>";
+		};
+		FE0A091FDBFB3E9C31B7A1BD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F3FD78D7CCBB63B32E76D56E /* HearthDuster.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		2C6A1FA7948F9CB0D3B4EEEC /* HearthDuster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "HearthDuster" */;
+			buildPhases = (
+				F7E50F631C51CD5B5DC0BC43 /* Compile Sources */,
+				D1C883685E82D5676953459A /* Link Binary With Libraries */,
+				30414803F31797EB689AE508 /* Copy Bundle Resources */,
+				BC14E5921EC2618D008693DE /* CopyFiles */,
+				BC14E5941EC263C9008693DE /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E5414FD7E9A0D81F1C2C6E12 /* PBXTargetDependency */,
+			);
+			name = HearthDuster;
+			productName = HearthDuster;
+			productReference = F3FD78D7CCBB63B32E76D56E /* HearthDuster.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6DB9C3763D02B1415CD9D565 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				TargetAttributes = {
+					2C6A1FA7948F9CB0D3B4EEEC = {
+						DevelopmentTeam = LCPPMESTJX;
+						ProvisioningStyle = Automatic;
+					};
+					4D13C62D3C62C4E382CFFCA7 = {
+						DevelopmentTeam = LCPPMESTJX;
+					};
+				};
+			};
+			buildConfigurationList = DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "HearthDuster" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				en,
+			);
+			mainGroup = E8C543AB96796ECAA2E65C57 /* HearthDuster */;
+			productRefGroup = FE0A091FDBFB3E9C31B7A1BD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				2C6A1FA7948F9CB0D3B4EEEC /* HearthDuster */,
+				4D13C62D3C62C4E382CFFCA7 /* Qt Preprocess */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30414803F31797EB689AE508 /* Copy Bundle Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Copy Bundle Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5E618435888B9D49F8540165 /* Qt Qmake */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Qmake";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Haibane/Works/HearthDuster/HearthDuster/ -f HearthDuster.xcodeproj/qt_makeqmake.mak";
+			showEnvVarsInLog = 0;
+		};
+		7EF0942E79C014DCEC8976BC /* Qt Preprocessors */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "Qt Preprocessors";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/Haibane/Works/HearthDuster/HearthDuster/ -f HearthDuster.xcodeproj/qt_preprocess.mak";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F7E50F631C51CD5B5DC0BC43 /* Compile Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F90C8767867F508B65C9A0D7 /* main.cpp in Compile Sources */,
+				FDA403272FACF6671820AA9F /* mainwindow.cpp in Compile Sources */,
+				A8ED34A414CD631C48C8B1BF /* cardsdb.cpp in Compile Sources */,
+				BBD3E556AEAC2B8D82CFDD03 /* card.cpp in Compile Sources */,
+				1F326E34D3EF02C46BD16E5D /* collection.cpp in Compile Sources */,
+				B9884937470D6F8CDAF2545B /* duststrategy.cpp in Compile Sources */,
+				BF2CE18928ECDFD4BD3FD2A0 /* macutils.mm in Compile Sources */,
+				BECF3DEC2BA93ED80483FB49 /* qrc_resources.cpp in Compile Sources */,
+				766079B2DDF9611CD8169F14 /* moc_mainwindow.cpp in Compile Sources */,
+				9A74BC9904E04EF371CC2C93 /* dummy.cpp in Compile Sources */,
+			);
+			name = "Compile Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E5414FD7E9A0D81F1C2C6E12 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D13C62D3C62C4E382CFFCA7 /* Qt Preprocess */;
+			targetProxy = BC14E58F1EC25FAD008693DE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		339EE1B2CC4FC24589A0EA95 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = LCPPMESTJX;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					.,
+					libs/HearthMirror/include,
+					libs/HearthMirror,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtWidgets.framework/Headers,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtGui.framework/Headers,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtCore.framework/Headers,
+					.,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers,
+					.,
+					"../../../Qt5.8.0/5.8/clang_64/mkspecs/macx-clang",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/System/Library/Frameworks/,
+					/Users/Haibane/Works/HearthDuster/HearthDuster/libs/HearthMirror/,
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_DEPRECATED_WARNINGS",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++11",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_DEPRECATED_WARNINGS",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-stdlib=libc++",
+					"-Wl,-rpath,/Users/Haibane/Qt5.8.0/5.8/clang_64/lib",
+					"-F/Users/Haibane/Qt5.8.0/5.8/clang_64/lib",
+					"-L/Users/Haibane/Works/HearthDuster/HearthDuster/libs/HearthMirror/",
+				);
+				PRODUCT_NAME = HearthDuster;
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+				SYMROOT = /Users/Haibane/Works/HearthDuster/HearthDuster/;
+			};
+			name = Release;
+		};
+		3AA6C32AC930069E80220CF1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CC = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = LCPPMESTJX;
+				DYLIB_COMPATIBILITY_VERSION = 1.0;
+				DYLIB_CURRENT_VERSION = 1.0.0;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+				);
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				HEADER_SEARCH_PATHS = (
+					.,
+					libs/HearthMirror/include,
+					libs/HearthMirror,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtWidgets.framework/Headers,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtGui.framework/Headers,
+					../../../Qt5.8.0/5.8/clang_64/lib/QtCore.framework/Headers,
+					.,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/OpenGL.framework/Headers,
+					/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/AGL.framework/Headers,
+					.,
+					"../../../Qt5.8.0/5.8/clang_64/mkspecs/macx-clang",
+				);
+				INFOPLIST_FILE = Info.plist;
+				LDPLUSPLUS = "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++";
+				LIBRARY_SEARCH_PATHS = (
+					/System/Library/Frameworks/,
+					/Users/Haibane/Works/HearthDuster/HearthDuster/libs/HearthMirror/,
+					/Users/Haibane/Qt5.8.0/5.8/clang_64/lib,
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				OTHER_CFLAGS = (
+					"-pipe",
+					"-O2",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_DEPRECATED_WARNINGS",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_CPLUSPLUSFLAGS = (
+					"-pipe",
+					"-stdlib=libc++",
+					"-O2",
+					"-std=gnu++11",
+					"-Wall",
+					"-W",
+					"-fPIC",
+					"-DQT_DEPRECATED_WARNINGS",
+					"-DQT_NO_DEBUG",
+					"-DQT_WIDGETS_LIB",
+					"-DQT_GUI_LIB",
+					"-DQT_CORE_LIB",
+				);
+				OTHER_LDFLAGS = (
+					"-headerpad_max_install_names",
+					"-stdlib=libc++",
+					"-Wl,-rpath,/Users/Haibane/Qt5.8.0/5.8/clang_64/lib",
+					"-F/Users/Haibane/Qt5.8.0/5.8/clang_64/lib",
+					"-L/Users/Haibane/Works/HearthDuster/HearthDuster/libs/HearthMirror/",
+				);
+				PRODUCT_NAME = HearthDuster;
+				QT_LIBRARY_SUFFIX = _debug;
+				SDKROOT = macosx;
+				SYMROOT = /Users/Haibane/Works/HearthDuster/HearthDuster/;
+			};
+			name = Debug;
+		};
+		6666AA5E688052234F6758D8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = LCPPMESTJX;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				PRODUCT_NAME = HearthDuster;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				QT_LIBRARY_SUFFIX = "";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		77418F46922677BB04ED38DD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = LCPPMESTJX;
+				ENABLE_BITCODE = NO;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = HearthDuster;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				QT_LIBRARY_SUFFIX = _debug;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6CC3B5D2136C7CD6A5CF5A59 /* Build configuration list for PBXNativeTarget "HearthDuster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				77418F46922677BB04ED38DD /* Debug */,
+				6666AA5E688052234F6758D8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAC4C1AA5EDEA1C85E9CA5E6 /* Build configuration list for PBXProject "HearthDuster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AA6C32AC930069E80220CF1 /* Debug */,
+				339EE1B2CC4FC24589A0EA95 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6DB9C3763D02B1415CD9D565 /* Project object */;
+}

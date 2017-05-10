@@ -53,7 +53,7 @@ CardClass ReadCardClassValue(const QJsonValue& value, CardClass defaultValue = C
         qDebug() << "Invalid card class: " << sValue;
         return defaultValue;
     }
-    return CLASS_NEUTRAL;
+    return cardClassMap[sValue];
 }
 
 std::map<QString, CardRarity> cardRarityMap = {{"FREE", RARITY_FREE},
@@ -69,7 +69,7 @@ CardRarity ReadCardRarityValue(const QJsonValue& value, CardRarity defaultValue 
         qDebug() << "Invalid card rarity: " << sValue;
         return defaultValue;
     }
-    return RARITY_FREE;
+    return cardRarityMap[sValue];
 }
 
 std::map<QString, CardType> cardTypeMap = {{"INVALID", TYPE_INVALID},
@@ -87,7 +87,7 @@ CardType ReadCardTypeValue(const QJsonValue& value, CardType defaultValue = TYPE
         qDebug() << "Invalid card type: " << sValue;
         return defaultValue;
     }
-    return TYPE_INVALID;
+    return cardTypeMap[sValue];
 }
 
 Card* CardFactory::FromJson(const QJsonObject& jsonobject) {
@@ -111,6 +111,7 @@ Card* CardFactory::FromJson(const QJsonObject& jsonobject) {
     card->cardClass = ReadCardClassValue(jsonobject["cardClass"]);
     card->playerClass = ReadCardClassValue(jsonobject["playerClass"]);
     card->collectible = ReadBoolValue(jsonobject["collectible"], false);
+    card->elite = ReadBoolValue(jsonobject["elite"], false);
 
     card->rarity = ReadCardRarityValue(jsonobject["rarity"], RARITY_FREE);
     card->type = ReadCardTypeValue(jsonobject["type"]);

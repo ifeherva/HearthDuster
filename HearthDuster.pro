@@ -28,12 +28,14 @@ SOURCES += Src/main.cpp\
         Src/GUI/mainwindow.cpp \
     Src/Database/cardsdb.cpp \
     Src/Database/card.cpp \
-    Src/collection.cpp
+    Src/collection.cpp \
+    Src/duststrategy.cpp
 
 HEADERS  += Src/GUI/mainwindow.h \
     Src/Database/cardsdb.h \
     Src/Database/card.h \
-    Src/collection.h
+    Src/collection.h \
+    Src/duststrategy.h
 
 macx: {
     HEADERS += Src/utils/macutils.h

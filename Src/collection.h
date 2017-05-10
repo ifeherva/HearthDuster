@@ -9,13 +9,22 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 
+#include <map>
+#include "Database/card.h"
+#include "duststrategy.h"
 
 class Collection
 {
 public:
     Collection();
+    ~Collection();
 
     void sync();
+
+    std::vector<const Card*> getCardsFor(dustCard dustcardFunction, bool excludeNonDustable = true);
+
+private:
+    std::map<QString, CollectionCard> m_cardcollection;
 };
 
 #endif // COLLECTION_H

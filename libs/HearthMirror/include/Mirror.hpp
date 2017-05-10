@@ -18,8 +18,8 @@
 #define HEARTHMIRROR_API __declspec(dllexport)
 #endif
 
-typedef std::vector<std::string> HMObjectPath;
-
+namespace hearthmirror {
+    
 // Return types
 // ------------
 
@@ -203,8 +203,6 @@ typedef struct _SetFilterItem {
     bool isAllStandard;
     bool isWild;
 } SetFilterItem;
-
-namespace hearthmirror {
     
     typedef struct _mirrorData MirrorData;
 

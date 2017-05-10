@@ -11,6 +11,7 @@
 
 #include <QFileInfo>
 #include <QDir>
+#include <QDebug>
 #include "../Database/cardsdb.h"
 #include <security.h>
 
@@ -27,8 +28,11 @@ MainWindow::MainWindow(QWidget *parent) :
     //TODO: get locale from preferences
     QString locale = "enUS";
 
+#ifdef __APPLE__
+    QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/../Resources/Cards/cardsDB."+locale +".json";
+#else
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
-
+#endif
     // init database from locale
     if (CardsDb::InitFromFile(carddbpath)) {
         // TODO: proper error dialog
@@ -53,6 +57,18 @@ MainWindow::~MainWindow()
 void MainWindow::SyncCollection()
 {
     this->collection->sync();
+
+    auto excessPreferGolden = this->collection->getCardsFor(DustStrategy::ExcessPlayableCardsPreferGoldStrategy);
+    
+    sort(excessPreferGolden.begin(), excessPreferGolden.end(),
+         [](const Card* & a, const Card* & b) -> bool
+    {
+        return a->rarity > b->rarity;
+    });
+    
+    for (auto card : excessPreferGolden) {
+        qDebug() << card->name;
+    }
 }
 
 void MainWindow::ErrorOccured()

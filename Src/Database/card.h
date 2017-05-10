@@ -28,7 +28,7 @@ enum CardClass {
 };
 
 enum CardRarity {
-    RARITY_FREE,
+    RARITY_FREE = 0,
     RARITY_COMMON,
     RARITY_RARE,
     RARITY_EPIC,
@@ -86,6 +86,7 @@ public:
     int attack;
     CardClass cardClass;
     bool collectible;
+    bool elite;
     int cost;
     int dbfId;
     QString flavor;
@@ -103,6 +104,16 @@ public:
 class CardFactory {
 public:
     static Card* FromJson(const QJsonObject& jsonobject);
+};
+
+struct CollectionCard {
+    QString id;
+    unsigned int normal_count;
+    unsigned int premium_count;
+
+public:
+    CollectionCard() {}
+    CollectionCard(const QString& id): id(id), normal_count(0), premium_count(0) {}
 };
 
 #endif // CARD_H

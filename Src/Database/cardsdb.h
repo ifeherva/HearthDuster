@@ -25,6 +25,7 @@ class CardsDb
 public:
 
     static int InitFromFile(const QString& cardsDbFile);
+    static const Card* CardForId(const QString& id);
 
 private:
 
