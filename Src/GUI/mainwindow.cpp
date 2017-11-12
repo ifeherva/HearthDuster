@@ -11,28 +11,25 @@
 
 #include <QFileInfo>
 #include <QDir>
-#include <QDebug>
-#include "../Database/cardsdb.h"
+#include <QCheckBox>
+#include "../db/cardsdb.h"
 #include <security.h>
+#include "../preferences/preferences.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    QErrorMessage* errormessage = new QErrorMessage(this);
+    errormessage = new QErrorMessage(this);
 
     connect(ui->actionSync, SIGNAL(triggered(bool)), this, SLOT(SyncCollection()) );
     connect(errormessage, SIGNAL(accepted()), this, SLOT(ErrorOccured())  );
 
-    //TODO: get locale from preferences
-    QString locale = "enUS";
+    QString locale = Preferences::GetLocale();
 
-#ifdef __APPLE__
-    QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/../Resources/Cards/cardsDB."+locale +".json";
-#else
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
-#endif
+
     // init database from locale
     if (CardsDb::InitFromFile(carddbpath)) {
         // TODO: proper error dialog
@@ -40,10 +37,30 @@ MainWindow::MainWindow(QWidget *parent) :
     }
 
 #ifdef __APPLE__
-    if (acquireTaskportRight() != 0) {
-        errormessage->showMessage(tr("Failed acquire memory reading access rights!"));
+    if (Preferences::ShowMemoryReadingWarning()) {
+
+        QCheckBox* cb = new QCheckBox("Show this warning at every start");
+        cb->setCheckState(Qt::Checked);
+        QMessageBox msgbox;
+        msgbox.setModal(true);
+        msgbox.setText(tr("HearthDuster needs elevated priviliages to read you card collection directly from Hearthstone.\n"
+                          "The operating system might ask for a password. This is a completely safe operation."));
+        msgbox.setIcon(QMessageBox::Icon::Warning);
+        msgbox.addButton(QMessageBox::Ok);
+        msgbox.setDefaultButton(QMessageBox::Ok);
+        msgbox.setCheckBox(cb);
+
+        QObject::connect(cb, &QCheckBox::stateChanged, [this](int state) {
+            Preferences::SetShowMemoryReadingWarning(static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked);
+        });
+
+        msgbox.exec();
+        delete cb;
     }
+
+    AcquireTaskportRight();
 #endif
+
     collection = new Collection();
 }
 
@@ -67,7 +84,7 @@ void MainWindow::SyncCollection()
     });
     
     for (auto card : excessPreferGolden) {
-        qDebug() << card->name;
+        //qDebug() << card->name;
     }
 }
 
@@ -75,3 +92,12 @@ void MainWindow::ErrorOccured()
 {
     QCoreApplication::exit();
 }
+
+#ifdef __APPLE__
+void MainWindow::AcquireTaskportRight()
+{
+    if (acquireTaskportRight() != 0) {
+        errormessage->showMessage(tr("Failed to acquire memory reading access rights!"));
+    }
+}
+#endif

@@ -7,7 +7,7 @@
 //
 
 #include "duststrategy.h"
-#include "Database/cardsdb.h"
+#include "db/cardsdb.h"
 
 bool DustStrategy::ExcessCardsStrategy(const CollectionCard& card)
 {

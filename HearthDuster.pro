@@ -24,35 +24,37 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-SOURCES += Src/main.cpp\
-        Src/GUI/mainwindow.cpp \
-    Src/Database/cardsdb.cpp \
-    Src/Database/card.cpp \
-    Src/collection.cpp \
-    Src/duststrategy.cpp
+SOURCES += src/main.cpp\
+        src/gui/mainwindow.cpp \
+    src/db/cardsdb.cpp \
+    src/db/card.cpp \
+    src/collection.cpp \
+    src/duststrategy.cpp \
+    src/preferences/preferences.cpp
 
-HEADERS  += Src/GUI/mainwindow.h \
-    Src/Database/cardsdb.h \
-    Src/Database/card.h \
-    Src/collection.h \
-    Src/duststrategy.h
+HEADERS  += src/gui/mainwindow.h \
+    src/db/cardsdb.h \
+    src/db/card.h \
+    src/collection.h \
+    src/duststrategy.h \
+    src/preferences/preferences.h
 
 macx: {
-    HEADERS += Src/utils/macutils.h
-    OBJECTIVE_SOURCES +=  Src/utils/macutils.mm
+    HEADERS += src/utils/macutils.h
+    OBJECTIVE_SOURCES +=  src/utils/macutils.mm
 
     LIBS += -framework AppKit
 }
 
-FORMS    += Src/GUI/mainwindow.ui
+FORMS    += src/gui/mainwindow.ui
 
 INCLUDEPATH += libs/HearthMirror/include
 
 # copy cards data
 macx {
-    copydata.commands = $(COPY_DIR) $$PWD/Resources/Cards $$OUT_PWD/HearthDuster.app/Contents/MacOS
+    copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD/HearthDuster.app/Contents/MacOS
 } else {
-    copydata.commands = $(COPY_DIR) $$PWD/Resources/Cards $$OUT_PWD
+    copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD
 }
 
 first.depends = $(first) copydata

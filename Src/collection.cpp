@@ -8,7 +8,7 @@
 
 #include "collection.h"
 #include "utils/macutils.h"
-#include "Database/cardsdb.h"
+#include "db/cardsdb.h"
 
 #include <Mirror.hpp>
 

@@ -10,7 +10,7 @@
 #define COLLECTION_H
 
 #include <map>
-#include "Database/card.h"
+#include "db/card.h"
 #include "duststrategy.h"
 
 class Collection

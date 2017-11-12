@@ -1,7 +1,7 @@
 #ifndef DUSTSTRATEGY_H
 #define DUSTSTRATEGY_H
 
-#include "Database/card.h"
+#include "db/card.h"
 
 typedef bool (*dustCard)(const CollectionCard&);
 

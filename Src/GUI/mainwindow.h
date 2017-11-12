@@ -11,6 +11,7 @@
 
 #include <QMainWindow>
 #include <QErrorMessage>
+#include <QMessageBox>
 
 #include "../collection.h"
 
@@ -35,6 +36,11 @@ private:
 public slots:
     void SyncCollection();
     void ErrorOccured();
+
+private slots:
+#ifdef __APPLE__
+    void AcquireTaskportRight();
+#endif
 };
 
 #endif // MAINWINDOW_H

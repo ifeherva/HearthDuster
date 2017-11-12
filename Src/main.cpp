@@ -6,7 +6,7 @@
 //  Copyright © 2017 com.ifehervari. All rights reserved.
 //
 
-#include "GUI/mainwindow.h"
+#include "gui/mainwindow.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
