@@ -25,18 +25,18 @@ DustPair DuplicatesDustStrategy::getDustValue(const CollectionCard& card) const
     bool isElite = isCardElite(card);
 
     if (isElite) {
-        if (card.normal_count > 0) {
-            result.normal = card.normal_count - 1;
+        if (card.normalCount > 0) {
+            result.normal = card.normalCount - 1;
         }
-        if (card.premium_count > 0) {
-            result.premium = card.premium_count - 1;
+        if (card.premiumCount > 0) {
+            result.premium = card.premiumCount - 1;
         }
     } else {
-        if (card.normal_count > 1) {
-            result.normal = card.normal_count - 2;
+        if (card.normalCount > 1) {
+            result.normal = card.normalCount - 2;
         }
-        if (card.premium_count > 1) {
-            result.premium = card.premium_count - 2;
+        if (card.premiumCount > 1) {
+            result.premium = card.premiumCount - 2;
         }
     }
 

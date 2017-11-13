@@ -11,8 +11,8 @@
 #include "db/card.h"
 
 struct DustPair {
-    unsigned int normal;
-    unsigned int premium;
+    unsigned int normal = 0;
+    unsigned int premium = 0;
 
     bool isEmpty() {
         return normal == 0 && premium == 0;

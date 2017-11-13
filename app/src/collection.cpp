@@ -69,9 +69,9 @@ SynchError Collection::sync()
         }
 
         if (card.premium) {
-            m_cardcollection[cardid].premium_count = card.count;
+            m_cardcollection[cardid].premiumCount = card.count;
         } else {
-            m_cardcollection[cardid].normal_count = card.count;
+            m_cardcollection[cardid].normalCount = card.count;
         }
     }
     return NoError;

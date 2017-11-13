@@ -12,7 +12,7 @@
 #include "../duststrategy.h"
 
 class DuplicatesDustStrategy : public DustStrategy {
-
+public:
     virtual QString getName() const;
     virtual QString getDescription() const;
 

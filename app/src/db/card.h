@@ -108,12 +108,13 @@ public:
 
 struct CollectionCard {
     QString id;
-    unsigned int normal_count;
-    unsigned int premium_count;
+    unsigned int normalCount;
+    unsigned int premiumCount;
 
 public:
     CollectionCard() {}
-    CollectionCard(const QString& id): id(id), normal_count(0), premium_count(0) {}
+    CollectionCard(const QString& id): id(id), normalCount(0), premiumCount(0) {}
+    CollectionCard(const QString& id, unsigned int normalCount, unsigned int premiumCount): id(id), normalCount(normalCount), premiumCount(premiumCount) {}
 };
 
 #endif // CARD_H
