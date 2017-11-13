@@ -1,17 +1,16 @@
 //
-//  duplicates.h
-//  Strategy selecting duplicated cards
+//  minimumplayable.h
+//  Strategy optimizing cards to minimum playable, prefering gold cards
 //
 //  Created by Istvan Fehervari on 12/11/2017.
 //  Copyright © 2017 com.ifehervari. All rights reserved.
 //
-
-#ifndef DUPLICATES_H
-#define DUPLICATES_H
+#ifndef MINIMUMPLAYABLE_H
+#define MINIMUMPLAYABLE_H
 
 #include "../duststrategy.h"
 
-class DuplicatesDustStrategy : public DustStrategy {
+class MinimumPlayableDustStrategy : public DustStrategy {
 
     virtual QString getName() const;
     virtual QString getDescription() const;
@@ -19,4 +18,4 @@ class DuplicatesDustStrategy : public DustStrategy {
     virtual DustPair getDustValue(const CollectionCard& card) const;
 };
 
-#endif // DUPLICATES_H
+#endif // MINIMUMPLAYABLE_H

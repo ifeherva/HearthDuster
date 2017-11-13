@@ -16,7 +16,7 @@ QString DuplicatesDustStrategy::getName() const
 QString DuplicatesDustStrategy::getDescription() const
 {
     return "Selects cards that have more copies than the playable limit."
-           "This will not change functional or cosmetic property of the collection.";
+           " This will not change functional or cosmetic property of the collection.";
 }
 
 DustPair DuplicatesDustStrategy::getDustValue(const CollectionCard& card) const
