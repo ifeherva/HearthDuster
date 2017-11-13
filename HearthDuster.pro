@@ -30,14 +30,16 @@ SOURCES += src/main.cpp\
     src/db/card.cpp \
     src/collection.cpp \
     src/duststrategy.cpp \
-    src/preferences/preferences.cpp
+    src/preferences/preferences.cpp \
+    src/strategies/duplicates.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
     src/db/card.h \
     src/collection.h \
     src/duststrategy.h \
-    src/preferences/preferences.h
+    src/preferences/preferences.h \
+    src/strategies/duplicates.h
 
 macx: {
     HEADERS += src/utils/macutils.h

@@ -9,6 +9,12 @@
 #include "duststrategy.h"
 #include "db/cardsdb.h"
 
+bool DustStrategy::isCardElite(const CollectionCard& card) const
+{
+    const Card* cardDef = CardsDb::cardForId(card.id);
+    return cardDef->elite;
+}
+/*
 bool DustStrategy::ExcessCardsStrategy(const CollectionCard& card)
 {
     const Card* cardDef = CardsDb::CardForId(card.id);
@@ -32,3 +38,4 @@ bool DustStrategy::ExcessPlayableCardsPreferGoldStrategy(const CollectionCard& c
 
     return (card.normal_count + card.premium_count) > playlimit;
 }
+*/

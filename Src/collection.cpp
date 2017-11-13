@@ -22,12 +22,12 @@ Collection::~Collection()
 
 }
 
-void Collection::sync()
+SynchError Collection::sync()
 {
     // check if game is running
     int pid = getHearthstonePID();
 
-    if (pid == 0) return;
+    if (pid == 0) return HearthstoneNotRunning;
 
     m_cardcollection.clear();
     
@@ -39,7 +39,7 @@ void Collection::sync()
         cards = mirror->getCardCollection();
         delete mirror;
     } catch (std::exception&) {
-        return;
+        return InvalidCollectionData;
     }
     
     for (auto card : cards) {
@@ -54,22 +54,21 @@ void Collection::sync()
             m_cardcollection[cardid].normal_count = card.count;
         }
     }
+    return NoError;
 }
 
-std::vector<const Card*> Collection::getCardsFor(dustCard dustcardFunction, bool excludeNonDustable)
+std::vector<DustStrategyResult> Collection::getCardsFor(const DustStrategy* const dustStrategy, bool excludeNonDustable)
 {
-    std::vector<const Card*> result;
+    std::vector<DustStrategyResult> result;
     for (auto it = m_cardcollection.begin(); it != m_cardcollection.end(); it++) {
-        const Card* cardDef = CardsDb::CardForId(it->first);
+        const Card* cardDef = CardsDb::cardForId(it->first);
         if (!cardDef) continue;
         
         if ((cardDef->rarity == RARITY_FREE) && (excludeNonDustable)) continue;
-        
-        if (dustcardFunction(it->second)) {
-            
-            if (cardDef) {
-                result.push_back(cardDef);
-            }
+
+        auto dustValue = dustStrategy->getDustValue(it->second);
+        if (!dustValue.isEmpty()) {
+            result.push_back(DustStrategyResult(cardDef, dustValue.normal, dustValue.premium));
         }
     }
     return result;

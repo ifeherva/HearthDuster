@@ -22,23 +22,23 @@ CardsDb::~CardsDb() {
 
 }
 
-void CardsDb::Init() {
+void CardsDb::init() {
     if (instance == NULL) {
         instance = new CardsDb();
     }
 }
 
-void CardsDb::Clear() {
+void CardsDb::clear() {
     for (auto it = instance->cardsmap.begin(); it != instance->cardsmap.end(); it++) {
         delete it.value();
     }
     instance->cardsmap.clear();
 }
 
-int CardsDb::InitFromFile(const QString& cardsDbFile) {
-    CardsDb::Init();
+int CardsDb::initFromFile(const QString& cardsDbFile) {
+    CardsDb::init();
 
-    CardsDb::Clear();
+    CardsDb::clear();
 
     QFile jsonFile(cardsDbFile);
 
@@ -65,7 +65,7 @@ int CardsDb::InitFromFile(const QString& cardsDbFile) {
     return CARDSDBERROR_NOERROR;
 }
 
-const Card* CardsDb::CardForId(const QString& id)
+const Card* CardsDb::cardForId(const QString& id)
 {
     if (instance->cardsmap.contains(id)) {
         return instance->cardsmap[id];

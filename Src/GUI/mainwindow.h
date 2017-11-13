@@ -10,8 +10,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QErrorMessage>
-#include <QMessageBox>
 
 #include "../collection.h"
 
@@ -31,15 +29,12 @@ private:
     Ui::MainWindow *ui;
     Collection* collection = NULL;
 
-    QErrorMessage* errormessage = NULL;
-
 public slots:
-    void SyncCollection();
-    void ErrorOccured();
+    void syncCollection();
 
 private slots:
 #ifdef __APPLE__
-    void AcquireTaskportRight();
+    void requestOSXDebugRights();
 #endif
 };
 

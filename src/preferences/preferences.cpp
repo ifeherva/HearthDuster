@@ -14,17 +14,17 @@
 
 QSettings settings(ORGANIZATION_DOMAIN, APP_NAME);
 
-QString Preferences::GetLocale()
+QString Preferences::getLocale()
 {
     return settings.value("locale", DEFAULT_LOCALE).toString();
 }
 
-bool Preferences::ShowMemoryReadingWarning()
+bool Preferences::showMemoryReadingWarning()
 {
     return settings.value("showMemoryReadinWarning", true).toBool();
 }
 
-void Preferences::SetShowMemoryReadingWarning(bool value)
+void Preferences::setShowMemoryReadingWarning(bool value)
 {
     settings.setValue("showMemoryReadinWarning", value);
 }

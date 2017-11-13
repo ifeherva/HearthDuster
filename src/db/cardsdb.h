@@ -24,15 +24,15 @@ class CardsDb
 {
 public:
 
-    static int InitFromFile(const QString& cardsDbFile);
-    static const Card* CardForId(const QString& id);
+    static int initFromFile(const QString& cardsDbFile);
+    static const Card* cardForId(const QString& id);
 
 private:
 
     CardsDb();
     ~CardsDb();
-    static void Init();
-    static void Clear();
+    static void init();
+    static void clear();
 
     QMap<QString, Card*> cardsmap;
 };

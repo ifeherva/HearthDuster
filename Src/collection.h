@@ -13,15 +13,42 @@
 #include "db/card.h"
 #include "duststrategy.h"
 
+struct DustStrategyResult {
+    const Card* cardData;
+    const unsigned int superfluous_normal;
+    const unsigned int superfluous_premium;
+
+    DustStrategyResult(const Card* cardData,
+                       unsigned int superfluous_normal,
+                       unsigned int superfluous_premium) :
+        cardData(cardData),
+        superfluous_normal(superfluous_normal),
+        superfluous_premium(superfluous_premium) {}
+
+    bool isEmpty() {
+        return superfluous_normal == 0 && superfluous_premium == 0;
+    }
+};
+
+enum SynchError {
+    NoError,
+    HearthstoneNotRunning,
+    InvalidCollectionData,
+    UnknownError
+};
+
 class Collection
 {
 public:
     Collection();
     ~Collection();
 
-    void sync();
+    /** Synchronizes collection from Hearthstone.
+     * @returns true if synchronization is successful, false otherwise
+     */
+    SynchError sync();
 
-    std::vector<const Card*> getCardsFor(dustCard dustcardFunction, bool excludeNonDustable = true);
+    std::vector<DustStrategyResult> getCardsFor(const DustStrategy* const dustStrategy, bool excludeNonDustable = true);
 
 private:
     std::map<QString, CollectionCard> m_cardcollection;

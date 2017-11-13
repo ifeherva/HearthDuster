@@ -12,6 +12,7 @@
 #include <QFileInfo>
 #include <QDir>
 #include <QCheckBox>
+#include <QMessageBox>
 #include "../db/cardsdb.h"
 #include <security.h>
 #include "../preferences/preferences.h"
@@ -21,23 +22,19 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    errormessage = new QErrorMessage(this);
-
     connect(ui->actionSync, SIGNAL(triggered(bool)), this, SLOT(SyncCollection()) );
-    connect(errormessage, SIGNAL(accepted()), this, SLOT(ErrorOccured())  );
 
-    QString locale = Preferences::GetLocale();
-
+    QString locale = Preferences::getLocale();
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
 
     // init database from locale
-    if (CardsDb::InitFromFile(carddbpath)) {
-        // TODO: proper error dialog
-        errormessage->showMessage(tr("Failed to load cards database file!"));
+    if (CardsDb::initFromFile(carddbpath)) {
+        QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to load cards database file! Program will now exit."));
+        QCoreApplication::exit();
     }
 
 #ifdef __APPLE__
-    if (Preferences::ShowMemoryReadingWarning()) {
+    if (Preferences::showMemoryReadingWarning()) {
 
         QCheckBox* cb = new QCheckBox("Show this warning at every start");
         cb->setCheckState(Qt::Checked);
@@ -51,14 +48,14 @@ MainWindow::MainWindow(QWidget *parent) :
         msgbox.setCheckBox(cb);
 
         QObject::connect(cb, &QCheckBox::stateChanged, [this](int state) {
-            Preferences::SetShowMemoryReadingWarning(static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked);
+            Preferences::setShowMemoryReadingWarning(static_cast<Qt::CheckState>(state) == Qt::CheckState::Checked);
         });
 
         msgbox.exec();
         delete cb;
     }
 
-    AcquireTaskportRight();
+    requestOSXDebugRights();
 #endif
 
     collection = new Collection();
@@ -68,14 +65,24 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete this->collection;
-    delete this->errormessage;
 }
 
-void MainWindow::SyncCollection()
+void MainWindow::syncCollection()
 {
-    this->collection->sync();
+    auto error = this->collection->sync();
 
-    auto excessPreferGolden = this->collection->getCardsFor(DustStrategy::ExcessPlayableCardsPreferGoldStrategy);
+    switch (error) {
+        case SynchError::HearthstoneNotRunning :
+            QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to synchronize card collection: Hearthstone is not running."));
+            return;
+        case SynchError::InvalidCollectionData :
+        case SynchError::UnknownError :
+            QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to synchronize card collection: Unkown error occured."));
+            return;
+        case SynchError::NoError : break;
+    }
+
+    /*auto excessPreferGolden = this->collection->getCardsFor(DustStrategy::ExcessPlayableCardsPreferGoldStrategy);
     
     sort(excessPreferGolden.begin(), excessPreferGolden.end(),
          [](const Card* & a, const Card* & b) -> bool
@@ -85,19 +92,15 @@ void MainWindow::SyncCollection()
     
     for (auto card : excessPreferGolden) {
         //qDebug() << card->name;
-    }
-}
-
-void MainWindow::ErrorOccured()
-{
-    QCoreApplication::exit();
+    }*/
 }
 
 #ifdef __APPLE__
-void MainWindow::AcquireTaskportRight()
+void MainWindow::requestOSXDebugRights()
 {
     if (acquireTaskportRight() != 0) {
-        errormessage->showMessage(tr("Failed to acquire memory reading access rights!"));
+        QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to acquire memory reading access rights! Program will now exit."));
+        QCoreApplication::exit();
     }
 }
 #endif
