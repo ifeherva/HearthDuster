@@ -28,6 +28,9 @@ public:
 private:
     Ui::MainWindow *ui;
     Collection* collection = NULL;
+    std::vector<const DustStrategy*> strategies;
+
+    void updateCardTable(const DustStrategy* strategy);
 
 public slots:
     void syncCollection();
@@ -36,6 +39,8 @@ private slots:
 #ifdef __APPLE__
     void requestOSXDebugRights();
 #endif
+
+    void updateCardTable(int strategyIdx);
 };
 
 #endif // MAINWINDOW_H

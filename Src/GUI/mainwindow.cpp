@@ -9,6 +9,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <vector>
+#include <algorithm>
 #include <QFileInfo>
 #include <QDir>
 #include <QCheckBox>
@@ -16,13 +18,25 @@
 #include "../db/cardsdb.h"
 #include <security.h>
 #include "../preferences/preferences.h"
+#include "../strategies/strategies.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    // build UI
     ui->setupUi(this);
-    connect(ui->actionSync, SIGNAL(triggered(bool)), this, SLOT(SyncCollection()) );
+    connect(ui->syncButton, SIGNAL(clicked(bool)), this, SLOT(syncCollection()) );
+
+    INSTALL_STRATEGIES(strategies)
+
+    for (unsigned int i = 0; i < strategies.size(); i++) {
+        ui->strategiesComboBox->addItem(strategies[i]->getName());
+        ui->strategiesComboBox->setItemData(i, strategies[i]->getDescription(), Qt::ToolTipRole);
+    }
+    connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
+
+    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Name" << "Normal" << "Golden" << "Dust");
 
     QString locale = Preferences::getLocale();
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
@@ -65,6 +79,10 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete this->collection;
+    for (auto strategy: strategies) {
+        delete strategy;
+    }
+    strategies.clear();
 }
 
 void MainWindow::syncCollection()
@@ -82,17 +100,29 @@ void MainWindow::syncCollection()
         case SynchError::NoError : break;
     }
 
-    /*auto excessPreferGolden = this->collection->getCardsFor(DustStrategy::ExcessPlayableCardsPreferGoldStrategy);
-    
-    sort(excessPreferGolden.begin(), excessPreferGolden.end(),
-         [](const Card* & a, const Card* & b) -> bool
-    {
-        return a->rarity > b->rarity;
-    });
-    
-    for (auto card : excessPreferGolden) {
-        //qDebug() << card->name;
-    }*/
+    updateCardTable(strategies[ui->strategiesComboBox->currentIndex()]);
+}
+
+void MainWindow::updateCardTable(int strategyIdx)
+{
+    updateCardTable(strategies[strategyIdx]);
+}
+
+void MainWindow::updateCardTable(const DustStrategy* strategy)
+{
+    auto cardsList = this->collection->getCardsFor(strategy, true);
+    ui->resultsTableWidget->clear();
+    ui->resultsTableWidget->setSortingEnabled(false);
+    ui->resultsTableWidget->setRowCount(cardsList.size());
+
+    for (unsigned int row = 0; row < cardsList.size(); row++) {
+        auto card = cardsList[row];
+        ui->resultsTableWidget->setItem(row, 0, new QTableWidgetItem(card.cardData->name));
+        ui->resultsTableWidget->setItem(row, 1, new QTableWidgetItem(QString::number(card.superfluous_normal)));
+        ui->resultsTableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(card.superfluous_premium)));
+        ui->resultsTableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(card.dustValue())));
+    }
+    ui->resultsTableWidget->setSortingEnabled(true);
 }
 
 #ifdef __APPLE__

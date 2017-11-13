@@ -1,3 +1,10 @@
+//
+//  duststrategy.h
+//  Dusting strategy abstract class
+//
+//  Created by Istvan Fehervari on 12/11/2017.
+//  Copyright © 2017 com.ifehervari. All rights reserved.
+//
 #ifndef DUSTSTRATEGY_H
 #define DUSTSTRATEGY_H
 
@@ -15,6 +22,9 @@ struct DustPair {
 class DustStrategy {
 
 public:
+    DustStrategy() {}
+    virtual ~DustStrategy() {}
+
     virtual QString getName() const = 0;
     virtual QString getDescription() const = 0;
 

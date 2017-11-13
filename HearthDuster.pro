@@ -39,7 +39,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/collection.h \
     src/duststrategy.h \
     src/preferences/preferences.h \
-    src/strategies/duplicates.h
+    src/strategies/duplicates.h \
+    src/strategies/strategies.h
 
 macx: {
     HEADERS += src/utils/macutils.h

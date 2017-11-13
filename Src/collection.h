@@ -1,6 +1,6 @@
 //
 //  collection.h
-//  Collection
+//  Collection model class
 //
 //  Created by Istvan Fehervari on 01/05/2017.
 //  Copyright © 2017 com.ifehervari. All rights reserved.
@@ -28,6 +28,25 @@ struct DustStrategyResult {
     bool isEmpty() {
         return superfluous_normal == 0 && superfluous_premium == 0;
     }
+
+    unsigned int dustValue();
+/*
+    bool operator < (const DustStrategyResult& rhs) const {
+        // legendaries
+        if (rhs.cardData->elite && !this->cardData->elite) {
+            return true;
+        }
+        if (!rhs.cardData->elite && this->cardData->elite) {
+            return false;
+        }
+        if (rhs.cardData->elite && this->cardData->elite) {
+            return this->cardData->name < rhs.cardData->name;
+        }
+        if (this->cardData->rarity != rhs.cardData->rarity) {
+            return this->cardData->rarity > rhs.cardData->rarity;
+        }
+        return true;
+    }*/
 };
 
 enum SynchError {

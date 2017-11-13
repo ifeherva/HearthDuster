@@ -12,6 +12,26 @@
 
 #include <Mirror.hpp>
 
+unsigned int DustStrategyResult::dustValue() {
+
+    unsigned int result = 0;
+    if (this->cardData->rarity == RARITY_LEGENDARY) {
+        result += superfluous_normal * 400;
+        result += superfluous_premium * 1600;
+    } else if (this->cardData->rarity == RARITY_EPIC) {
+        result += superfluous_normal * 100;
+        result += superfluous_premium * 400;
+    } else if (this->cardData->rarity == RARITY_RARE) {
+        result += superfluous_normal * 20;
+        result += superfluous_premium * 100;
+    } else if (this->cardData->rarity == RARITY_COMMON) {
+        result += superfluous_normal * 5;
+        result += superfluous_premium * 50;
+    }
+
+    return result;
+}
+
 Collection::Collection()
 {
 

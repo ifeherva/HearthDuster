@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>344</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>HearthDuster</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="syncButton">
     <property name="geometry">
      <rect>
       <x>140</x>
@@ -24,8 +24,38 @@
      </rect>
     </property>
     <property name="text">
-     <string>Syncronize</string>
+     <string>Synchronize</string>
     </property>
+   </widget>
+   <widget class="QComboBox" name="strategiesComboBox">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>50</y>
+      <width>261</width>
+      <height>26</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="resultsTableWidget">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>80</y>
+      <width>256</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="editTriggers">
+     <set>QAbstractItemView::NoEditTriggers</set>
+    </property>
+    <property name="columnCount">
+     <number>4</number>
+    </property>
+    <column/>
+    <column/>
+    <column/>
+    <column/>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
