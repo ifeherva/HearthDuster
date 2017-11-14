@@ -32,6 +32,7 @@ public:
 
 protected:
     bool isCardElite(const CollectionCard& card) const;
+    bool isStandard(const CollectionCard& card) const;
 };
 
 #endif // DUSTSTRATEGY_H

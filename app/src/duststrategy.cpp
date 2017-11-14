@@ -14,28 +14,16 @@ bool DustStrategy::isCardElite(const CollectionCard& card) const
     const Card* cardDef = CardsDb::cardForId(card.id);
     return cardDef->elite;
 }
-/*
-bool DustStrategy::ExcessCardsStrategy(const CollectionCard& card)
+
+bool DustStrategy::isStandard(const CollectionCard& card) const
 {
-    const Card* cardDef = CardsDb::CardForId(card.id);
-    if (cardDef == NULL) {
-        return false;
-    }
-
-    unsigned int playlimit = cardDef->elite ? 1 : 2;
-
-    return (card.normal_count > playlimit) || (card.premium_count > playlimit);
+    const Card* cardDef = CardsDb::cardForId(card.id);
+    return (cardDef->set == CARD_SET_BASIC ||
+            cardDef->set == CARD_SET_CLASSIC ||
+            cardDef->set == CARD_SET_OLD_GODS ||
+            cardDef->set == CARD_SET_KARAZHAN ||
+            cardDef->set == CARD_SET_MEAN_STREETS_OF_GADGETZAN ||
+            cardDef->set == CARD_SET_UNGORO ||
+            cardDef->set == CARD_SET_KNIGHTS_OF_THE_FROZEN_THRONE ||
+            cardDef->set == CARD_SET_KOBOLDS_AND_CARACOMBS);
 }
-
-bool DustStrategy::ExcessPlayableCardsPreferGoldStrategy(const CollectionCard& card)
-{
-    const Card* cardDef = CardsDb::CardForId(card.id);
-    if (cardDef == NULL) {
-        return false;
-    }
-
-    unsigned int playlimit = cardDef->elite ? 1 : 2;
-
-    return (card.normal_count + card.premium_count) > playlimit;
-}
-*/
