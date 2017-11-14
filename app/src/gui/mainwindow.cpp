@@ -36,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
 
-    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Name" << "Normal" << "Golden" << "Dust");
+    statusLabel = new QLabel("");
+    ui->statusBar->addPermanentWidget(statusLabel);
 
     QString locale = Preferences::getLocale();
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
@@ -111,18 +112,29 @@ void MainWindow::updateCardTable(int strategyIdx)
 void MainWindow::updateCardTable(const DustStrategy* strategy)
 {
     auto cardsList = this->collection->getCardsFor(strategy, true);
+    if (cardsList.size() > 0) {
+        ui->resultsTableWidget->setEnabled(true);
+    } else {
+        ui->resultsTableWidget->setEnabled(false);
+    }
+
     ui->resultsTableWidget->clear();
     ui->resultsTableWidget->setSortingEnabled(false);
     ui->resultsTableWidget->setRowCount(cardsList.size());
+    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Normal" << "Golden" << "Dust");
 
+    unsigned int sumDust = 0;
     for (unsigned int row = 0; row < cardsList.size(); row++) {
         auto card = cardsList[row];
         ui->resultsTableWidget->setItem(row, 0, new QTableWidgetItem(card.cardData->name));
         ui->resultsTableWidget->setItem(row, 1, new QTableWidgetItem(QString::number(card.superfluous_normal)));
         ui->resultsTableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(card.superfluous_premium)));
-        ui->resultsTableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(card.dustValue())));
+        unsigned int dustValue = card.dustValue();
+        ui->resultsTableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(dustValue)));
+        sumDust += dustValue;
     }
     ui->resultsTableWidget->setSortingEnabled(true);
+    statusLabel->setText("Total dust value: " + QString::number(sumDust));
 }
 
 #ifdef __APPLE__

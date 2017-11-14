@@ -10,6 +10,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 
 #include "../collection.h"
 
@@ -29,6 +30,7 @@ private:
     Ui::MainWindow *ui;
     Collection* collection = NULL;
     std::vector<const DustStrategy*> strategies;
+    QLabel* statusLabel = NULL;
 
     void updateCardTable(const DustStrategy* strategy);
 

@@ -53,6 +53,9 @@ macx: {
 
 FORMS    += src/gui/mainwindow.ui
 
+macx: QMAKE_INFO_PLIST = Info.plist
+macx: ICON = resources/icons/iconset.icns
+
 INCLUDEPATH += libs/HearthMirror/include
 
 # copy cards data
