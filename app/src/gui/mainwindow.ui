@@ -79,29 +79,12 @@
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
       </property>
-      <property name="columnCount">
-       <number>4</number>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::NoSelection</enum>
       </property>
-      <column>
-       <property name="text">
-        <string>Card</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Normal</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Golden</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Dust</string>
-       </property>
-      </column>
+      <property name="columnCount">
+       <number>0</number>
+      </property>
      </widget>
     </item>
    </layout>

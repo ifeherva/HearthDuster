@@ -36,6 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
 
+    ui->resultsTableWidget->clear();
+
     statusLabel = new QLabel("");
     ui->statusBar->addPermanentWidget(statusLabel);
 
@@ -109,6 +111,21 @@ void MainWindow::updateCardTable(int strategyIdx)
     updateCardTable(strategies[strategyIdx]);
 }
 
+QBrush getBrush(const CardRarity& rarity)
+{
+    switch (rarity) {
+        case RARITY_FREE:
+        case RARITY_COMMON:
+            return QBrush(QColor(233, 239, 235));
+        case RARITY_RARE:
+            return QBrush(QColor(27, 95, 178));
+        case RARITY_EPIC:
+            return QBrush(QColor(191, 45, 204));
+        case RARITY_LEGENDARY:
+            return QBrush(QColor(208, 124, 10));
+    }
+}
+
 void MainWindow::updateCardTable(const DustStrategy* strategy)
 {
     auto cardsList = this->collection->getCardsFor(strategy, true);
@@ -120,17 +137,38 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
 
     ui->resultsTableWidget->clear();
     ui->resultsTableWidget->setSortingEnabled(false);
+    ui->resultsTableWidget->setColumnCount(4);
     ui->resultsTableWidget->setRowCount(cardsList.size());
     ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Normal" << "Golden" << "Dust");
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
     unsigned int sumDust = 0;
     for (unsigned int row = 0; row < cardsList.size(); row++) {
         auto card = cardsList[row];
-        ui->resultsTableWidget->setItem(row, 0, new QTableWidgetItem(card.cardData->name));
-        ui->resultsTableWidget->setItem(row, 1, new QTableWidgetItem(QString::number(card.superfluous_normal)));
-        ui->resultsTableWidget->setItem(row, 2, new QTableWidgetItem(QString::number(card.superfluous_premium)));
+        auto bgBrush = getBrush(card.cardData->rarity);
+
+        auto cardTableWidgetItem = new QTableWidgetItem(card.cardData->name);
+        cardTableWidgetItem->setBackground(bgBrush);
+        ui->resultsTableWidget->setItem(row, 0, cardTableWidgetItem);
+
+        auto normalCountTableWidgetItem = new QTableWidgetItem(QString::number(card.superfluous_normal));
+        normalCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        normalCountTableWidgetItem->setBackground(bgBrush);
+        ui->resultsTableWidget->setItem(row, 1, normalCountTableWidgetItem);
+
+        auto premiumCountTableWidgetItem = new QTableWidgetItem(QString::number(card.superfluous_premium));
+        premiumCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        premiumCountTableWidgetItem->setBackground(bgBrush);
+        ui->resultsTableWidget->setItem(row, 2, premiumCountTableWidgetItem);
+
         unsigned int dustValue = card.dustValue();
-        ui->resultsTableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(dustValue)));
+        auto dustValueTableWidgetItem = new QTableWidgetItem(QString::number(dustValue));
+        dustValueTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        dustValueTableWidgetItem->setBackground(bgBrush);
+        ui->resultsTableWidget->setItem(row, 3, dustValueTableWidgetItem);
         sumDust += dustValue;
     }
     ui->resultsTableWidget->setSortingEnabled(true);
