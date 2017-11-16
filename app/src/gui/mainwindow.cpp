@@ -20,13 +20,18 @@
 #include "../preferences/preferences.h"
 #include "../strategies/strategies.h"
 
+#define SYNCH_UPDATE_INTERVAL_MS 5000
+
+#define STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING "Waiting on Hearthstone..."
+#define STATUS_MESSAGE_SYNCHING_ERROR "Error while synching collection"
+#define STATUS_MESSAGE_SYNCHING_COMPLETE "Collection is up to date"
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     // build UI
     ui->setupUi(this);
-    connect(ui->syncButton, SIGNAL(clicked(bool)), this, SLOT(syncCollection()) );
 
     INSTALL_STRATEGIES(strategies)
 
@@ -37,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
 
     ui->resultsTableWidget->clear();
+
+    ui->statusLabel->setText(tr(STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING));
 
     statusLabel = new QLabel("");
     ui->statusBar->addPermanentWidget(statusLabel);
@@ -76,6 +83,10 @@ MainWindow::MainWindow(QWidget *parent) :
 #endif
 
     collection = new Collection();
+
+    synchWorkerThread = new SynchWorkerThread(this->collection);
+    connect(synchWorkerThread, SIGNAL(synchCompleted(int)), this, SLOT(on_syncCompleted(int)));
+    synchWorkerThread->start();
 }
 
 MainWindow::~MainWindow()
@@ -88,19 +99,22 @@ MainWindow::~MainWindow()
     strategies.clear();
 }
 
-void MainWindow::syncCollection()
+void MainWindow::on_syncCompleted(int error)
 {
-    auto error = this->collection->sync();
-
     switch (error) {
         case SynchError::HearthstoneNotRunning :
-            QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to synchronize card collection: Hearthstone is not running."));
+            ui->statusLabel->setText(tr(STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING));
+            ui->statusLabel->setStyleSheet("QLabel { color : black; }");
             return;
         case SynchError::InvalidCollectionData :
         case SynchError::UnknownError :
-            QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to synchronize card collection: Unkown error occured."));
+            ui->statusLabel->setText(tr(STATUS_MESSAGE_SYNCHING_ERROR));
+            ui->statusLabel->setStyleSheet("QLabel { color : red; }");
             return;
-        case SynchError::NoError : break;
+        case SynchError::NoError :
+            ui->statusLabel->setText(tr(STATUS_MESSAGE_SYNCHING_COMPLETE));
+            ui->statusLabel->setStyleSheet("QLabel { color : green; }");
+            break;
     }
 
     updateCardTable(strategies[ui->strategiesComboBox->currentIndex()]);
@@ -184,3 +198,14 @@ void MainWindow::requestOSXDebugRights()
     }
 }
 #endif
+
+void SynchWorkerThread::run() {
+    while(1) {
+        auto error = this->collection->sync();
+        if (error == SynchError::NoError) {
+            emit synchCompleted(error);
+        }
+
+        sleep(SYNCH_UPDATE_INTERVAL_MS);
+    }
+}

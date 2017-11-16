@@ -11,8 +11,24 @@
 
 #include <QMainWindow>
 #include <QLabel>
-
+#include <QThread>
 #include "../collection.h"
+
+class SynchWorkerThread : public QThread {
+    Q_OBJECT
+public:
+    SynchWorkerThread(Collection* collection) : collection(collection) {}
+
+protected:
+    void run();
+
+private:
+    Collection* collection;
+
+    // Define signal:
+    signals:
+    void synchCompleted(int error);
+};
 
 namespace Ui {
 class MainWindow;
@@ -31,11 +47,12 @@ private:
     Collection* collection = NULL;
     std::vector<const DustStrategy*> strategies;
     QLabel* statusLabel = NULL;
+    SynchWorkerThread* synchWorkerThread = NULL;
 
     void updateCardTable(const DustStrategy* strategy);
 
 public slots:
-    void syncCollection();
+    void on_syncCompleted(int error);
 
 private slots:
 #ifdef __APPLE__
