@@ -14,6 +14,10 @@
 #include <QThread>
 #include "../collection.h"
 
+#define SYNCH_UPDATE_INTERVAL_START 5000
+#define SYNCH_UPDATE_INTERVAL_SUCCESS 10000
+#define SYNCH_UPDATE_INTERVAL_ERROR 2000
+
 class SynchWorkerThread : public QThread {
     Q_OBJECT
 public:
@@ -24,6 +28,7 @@ protected:
 
 private:
     Collection* collection;
+    unsigned int synchUpdateInterval = SYNCH_UPDATE_INTERVAL_START;
 
     // Define signal:
     signals:

@@ -20,8 +20,6 @@
 #include "../preferences/preferences.h"
 #include "../strategies/strategies.h"
 
-#define SYNCH_UPDATE_INTERVAL_MS 5000
-
 #define STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING "Waiting on Hearthstone..."
 #define STATUS_MESSAGE_SYNCHING_ERROR "Error while synching collection"
 #define STATUS_MESSAGE_SYNCHING_COMPLETE "Collection is up to date"
@@ -203,9 +201,12 @@ void SynchWorkerThread::run() {
     while(1) {
         auto error = this->collection->sync();
         if (error == SynchError::NoError) {
+            synchUpdateInterval = SYNCH_UPDATE_INTERVAL_SUCCESS;
             emit synchCompleted(error);
+        } else {
+            synchUpdateInterval = SYNCH_UPDATE_INTERVAL_ERROR;
         }
 
-        sleep(SYNCH_UPDATE_INTERVAL_MS);
+        sleep(synchUpdateInterval);
     }
 }
