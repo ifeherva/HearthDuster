@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 VERSION = 0.8.0
+DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
 SOURCES += src/main.cpp\
         src/gui/mainwindow.cpp \
@@ -36,7 +37,8 @@ SOURCES += src/main.cpp\
     src/strategies/duplicates.cpp \
     src/strategies/wild.cpp \
     src/strategies/jointduplicates.cpp \
-    src/strategies/jointduplicatesgolden.cpp
+    src/strategies/jointduplicatesgolden.cpp \
+    src/gui/aboutdialog.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -48,21 +50,25 @@ HEADERS  += src/gui/mainwindow.h \
     src/strategies/strategies.h \
     src/strategies/wild.h \
     src/strategies/jointduplicates.h \
-    src/strategies/jointduplicatesgolden.h
+    src/strategies/jointduplicatesgolden.h \
+    src/gui/aboutdialog.h
 
-macx: {
+macx {
     HEADERS += src/utils/macutils.h
     OBJECTIVE_SOURCES +=  src/utils/macutils.mm
 
     LIBS += -framework AppKit
 }
 
-FORMS    += src/gui/mainwindow.ui
+FORMS    += src/gui/mainwindow.ui \
+    src/gui/aboutdialog.ui
 
 macx: QMAKE_INFO_PLIST = Info.plist
 macx: ICON = resources/icons/iconset.icns
 
 INCLUDEPATH += libs/HearthMirror/include
+
+macx: QMAKE_CXXFLAGS += -save-temps
 
 # copy cards data
 macx {
@@ -81,6 +87,12 @@ macx {
 export(first.depends)
 export(copydata.commands)
 macx:export(copylibs.commands)
+
+# macx {
+#     plistupdate.commands = /usr/libexec/PlistBuddy -c \"Add :CFBundleShortVersionString string $$VERSION\" $$QMAKE_INFO_PLIST
+#     QMAKE_EXTRA_TARGETS += plistupdate
+#     PRE_TARGETDEPS += plistupdate
+# }
 
 macx {
     QMAKE_EXTRA_TARGETS += first copydata copylibs

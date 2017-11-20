@@ -31,6 +31,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // build UI
     ui->setupUi(this);
 
+    // build menu
+    QMenu *helpMenu = new QMenu(tr("&Help"), this);
+    QAction *aboutAction = helpMenu->addAction(tr("&About"));
+    connect(aboutAction, SIGNAL(triggered()), this, SLOT(showAboutBox()));
+    menuBar()->addMenu(helpMenu);
+
+    // build strategies
     INSTALL_STRATEGIES(strategies)
 
     for (unsigned int i = 0; i < strategies.size(); i++) {
@@ -121,6 +128,14 @@ void MainWindow::on_syncCompleted(int error)
 void MainWindow::updateCardTable(int strategyIdx)
 {
     updateCardTable(strategies[strategyIdx]);
+}
+
+void MainWindow::showAboutBox()
+{
+    if (this->aboutBox == NULL) {
+        this->aboutBox = new AboutDialog(APP_VERSION, this);
+    }
+    aboutBox->exec();
 }
 
 QBrush getBrush(const CardRarity& rarity)

@@ -13,6 +13,7 @@
 #include <QLabel>
 #include <QThread>
 #include "../collection.h"
+#include "../gui/aboutdialog.h"
 
 #define SYNCH_UPDATE_INTERVAL_START 5000
 #define SYNCH_UPDATE_INTERVAL_SUCCESS 10000
@@ -53,6 +54,7 @@ private:
     std::vector<const DustStrategy*> strategies;
     QLabel* statusLabel = NULL;
     SynchWorkerThread* synchWorkerThread = NULL;
+    AboutDialog* aboutBox = NULL;
 
     void updateCardTable(const DustStrategy* strategy);
 
@@ -65,6 +67,7 @@ private slots:
 #endif
 
     void updateCardTable(int strategyIdx);
+    void showAboutBox();
 };
 
 #endif // MAINWINDOW_H
