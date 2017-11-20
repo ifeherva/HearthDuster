@@ -24,6 +24,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
+VERSION = 0.8.0
+
 SOURCES += src/main.cpp\
         src/gui/mainwindow.cpp \
     src/db/cardsdb.cpp \
