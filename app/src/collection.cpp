@@ -7,7 +7,11 @@
 //
 
 #include "collection.h"
-#include "utils/macutils.h"
+#ifdef __APPLE__
+    #include "utils/macutils.h"
+#else
+    #include "utils/winutils.h"
+#endif
 #include "db/cardsdb.h"
 
 #include <Mirror.hpp>

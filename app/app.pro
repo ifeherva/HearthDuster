@@ -38,7 +38,8 @@ SOURCES += src/main.cpp\
     src/strategies/wild.cpp \
     src/strategies/jointduplicates.cpp \
     src/strategies/jointduplicatesgolden.cpp \
-    src/gui/aboutdialog.cpp
+    src/gui/aboutdialog.cpp \
+    src/utils/winutils.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -51,13 +52,20 @@ HEADERS  += src/gui/mainwindow.h \
     src/strategies/wild.h \
     src/strategies/jointduplicates.h \
     src/strategies/jointduplicatesgolden.h \
-    src/gui/aboutdialog.h
+    src/gui/aboutdialog.h \
+    src/utils/winutils.h
 
 macx {
     HEADERS += src/utils/macutils.h
     OBJECTIVE_SOURCES +=  src/utils/macutils.mm
 
     LIBS += -framework AppKit
+    LIBS += -L$$PWD/libs/HearthMirror/ -lHearthMirror
+} else {
+    HEADERS += src/utils/winutils.h
+    SOURCES += src/utils/winutils.cpp
+
+    LIBS += "$$PWD/libs/HearthMirror/HearthMirror.dll"
 }
 
 FORMS    += src/gui/mainwindow.ui \
@@ -75,7 +83,7 @@ macx {
     copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD/HearthDuster.app/Contents/MacOS
     copylibs.commands = mkdir -p $$OUT_PWD/HearthDuster.app/Contents/Frameworks && $(COPY_DIR) $$PWD/libs/HearthMirror/libHearthMirror.dylib $$OUT_PWD/HearthDuster.app/Contents/Frameworks/
 } else {
-    copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD
+    copydata.commands = $(COPY_DIR) $$shell_path($$PWD/resources/Cards) $$shell_path($$OUT_PWD)
 }
 
 macx {
@@ -103,7 +111,6 @@ macx {
 RESOURCES += \
     resources.qrc
 
-macx: LIBS += -L$$PWD/libs/HearthMirror/ -lHearthMirror
 
 INCLUDEPATH += $$PWD/libs/HearthMirror
 DEPENDPATH += $$PWD/libs/HearthMirror
