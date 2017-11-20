@@ -35,7 +35,8 @@ SOURCES += src/main.cpp\
     src/preferences/preferences.cpp \
     src/strategies/duplicates.cpp \
     src/strategies/wild.cpp \
-    src/strategies/jointduplicates.cpp
+    src/strategies/jointduplicates.cpp \
+    src/strategies/jointduplicatesgolden.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -46,7 +47,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/strategies/duplicates.h \
     src/strategies/strategies.h \
     src/strategies/wild.h \
-    src/strategies/jointduplicates.h
+    src/strategies/jointduplicates.h \
+    src/strategies/jointduplicatesgolden.h
 
 macx: {
     HEADERS += src/utils/macutils.h

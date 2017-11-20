@@ -10,7 +10,7 @@
 
 QString JointDuplicatesDustStrategy::getName() const
 {
-    return "Minimum Playable (preferring gold)";
+    return "Minimum Playable (keeping gold)";
 }
 
 QString JointDuplicatesDustStrategy::getDescription() const
@@ -30,9 +30,7 @@ DustPair JointDuplicatesDustStrategy::getDustValue(const CollectionCard& card) c
         if (sumCards > 1) {
             if (card.premiumCount > 0) {
                 result.normal = card.normalCount;
-                if (card.premiumCount > 1) {
-                    result.premium = card.premiumCount - 1;
-                }
+                result.premium = card.premiumCount - 1;
             } else {
                 if (card.normalCount > 1) {
                     result.normal = card.normalCount - 1;
