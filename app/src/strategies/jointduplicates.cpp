@@ -1,25 +1,25 @@
 //
-//  minimumplayable.cpp
-//  Dusting strategies
+//  jointduplicates.cpp
+//  Joint duplicates dusting strategy
 //
 //  Created by Istvan Fehervari on 12/11/2017.
 //  Copyright © 2017 com.ifehervari. All rights reserved.
 //
 
-#include "minimumplayable.h"
+#include "jointduplicates.h"
 
-QString MinimumPlayableDustStrategy::getName() const
+QString JointDuplicatesDustStrategy::getName() const
 {
     return "Minimum Playable (preferring gold)";
 }
 
-QString MinimumPlayableDustStrategy::getDescription() const
+QString JointDuplicatesDustStrategy::getDescription() const
 {
     return "Selects cards that have altogether more copies than the individual playable limit."
            " This will not change functional & but will change cosmetic property of the collection.";
 }
 
-DustPair MinimumPlayableDustStrategy::getDustValue(const CollectionCard& card) const
+DustPair JointDuplicatesDustStrategy::getDustValue(const CollectionCard& card) const
 {
     DustPair result;
     bool isElite = isCardElite(card);

@@ -30,7 +30,7 @@ SOURCES += \
         ../app/src/db/cardsdb.cpp \
         ../app/src/db/card.cpp \
         ../app/src/duststrategy.cpp \
-        ../app/src/strategies/minimumplayable.cpp \
-        strategies/tst_minimumplayable.cpp
+        ../app/src/strategies/jointduplicates.cpp \
+    strategies/tst_strategies.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

@@ -11,7 +11,7 @@ The current version is 0.8. See the release notes for latest changes.
 HearthDuster reads your card collection when you play and recommends card that you can disenchant based on one of the following strategies:
 
 - **Duplicates**: cards you have way too many, like 2 from the same legendary or more than 2 from a normal card. Golden and normal ones are calculated separately.
-- **Joint duplicates**: cards you have way too many including golden ones. For example two normal and one golden copy of the same card means you only need to keep one normal.
+- **Joint duplicates**: cards you have way too many including golden ones. For example two normal and one golden copy of the same card means you only need to keep one normal card in order to retain the playability of your collection. This strategy will select the non-golden cards.
 - **Wild**: cards that are no longer in standard.
 
 ## Questions?

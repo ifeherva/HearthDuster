@@ -34,8 +34,8 @@ SOURCES += src/main.cpp\
     src/duststrategy.cpp \
     src/preferences/preferences.cpp \
     src/strategies/duplicates.cpp \
-    src/strategies/minimumplayable.cpp \
-    src/strategies/wild.cpp
+    src/strategies/wild.cpp \
+    src/strategies/jointduplicates.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -45,8 +45,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/preferences/preferences.h \
     src/strategies/duplicates.h \
     src/strategies/strategies.h \
-    src/strategies/minimumplayable.h \
-    src/strategies/wild.h
+    src/strategies/wild.h \
+    src/strategies/jointduplicates.h
 
 macx: {
     HEADERS += src/utils/macutils.h

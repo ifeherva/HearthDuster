@@ -1,23 +1,23 @@
 #include <QString>
 #include <QtTest>
-#include "../../app/src/strategies/minimumplayable.h"
+#include "../../app/src/strategies/jointduplicates.h"
 #include "../../app/src/db/cardsdb.h"
 
-class MinimumPlayableDustStrategyTest : public QObject
+class DustStrategyTest : public QObject
 {
     Q_OBJECT
 
 public:
-    MinimumPlayableDustStrategyTest();
+    DustStrategyTest();
 
 private Q_SLOTS:
     void initTestCase();
-    void getDustValue();
+    void testJointDuplicatesDustStrategy();
 };
 
-MinimumPlayableDustStrategyTest::MinimumPlayableDustStrategyTest() {}
+DustStrategyTest::DustStrategyTest() {}
 
-void MinimumPlayableDustStrategyTest::initTestCase()
+void DustStrategyTest::initTestCase()
 {
     QString carddbpath = "../app/HearthDuster.app/Contents/MacOS/Cards/cardsDB.enUS.json";
 
@@ -25,9 +25,9 @@ void MinimumPlayableDustStrategyTest::initTestCase()
     QCOMPARE(CardsDb::initFromFile(carddbpath), 0);
 }
 
-void MinimumPlayableDustStrategyTest::getDustValue()
+void DustStrategyTest::testJointDuplicatesDustStrategy()
 {
-    MinimumPlayableDustStrategy strategy = MinimumPlayableDustStrategy();
+    JointDuplicatesDustStrategy strategy = JointDuplicatesDustStrategy();
 
     CollectionCard card = CollectionCard("AT_001", 0, 0);
 
@@ -56,6 +56,6 @@ void MinimumPlayableDustStrategyTest::getDustValue()
     QCOMPARE(dv.premium, 2u);
 }
 
-QTEST_APPLESS_MAIN(MinimumPlayableDustStrategyTest)
+QTEST_APPLESS_MAIN(DustStrategyTest)
 
-#include "tst_minimumplayable.moc"
+#include "tst_strategies.moc"
