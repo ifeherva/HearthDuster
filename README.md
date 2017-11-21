@@ -4,8 +4,8 @@ Need some dust? Don't know what to disenchant? HearthDuster shows you what cards
 ## Download
 The current version is 0.8. See the release notes for latest changes.
 
-- MacOS
-- Windows
+- [MacOS](https://github.com/ifeherva/HearthDuster/releases/download/v0.8.0/HearthDuster_0_8_0.dmg)
+- [Windows](https://github.com/ifeherva/HearthDuster/releases/download/v0.8.0/HearthDuster_0_8_0.zip)
 
 ## How does it work?
 HearthDuster reads your card collection when you play and recommends card that you can disenchant based on one of the following strategies:
