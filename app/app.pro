@@ -63,14 +63,18 @@ macx {
     HEADERS += src/utils/winutils.h
     SOURCES += src/utils/winutils.cpp
 
-    LIBS += "$$PWD/libs/HearthMirror/HearthMirror.dll"
+    LIBS += -L$$PWD/libs/HearthMirror/x64/ -lHearthMirror
 }
 
 FORMS    += src/gui/mainwindow.ui \
     src/gui/aboutdialog.ui
 
 macx: QMAKE_INFO_PLIST = Info.plist
-macx: ICON = resources/icons/iconset.icns
+macx {
+    ICON = resources/icons/iconset.icns
+} else {
+    RC_FILE = hearthduster.rc
+}
 
 INCLUDEPATH += libs/HearthMirror/include
 
@@ -81,7 +85,7 @@ macx {
     copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD/HearthDuster.app/Contents/MacOS
     copylibs.commands = mkdir -p $$OUT_PWD/HearthDuster.app/Contents/Frameworks && $(COPY_DIR) $$PWD/libs/HearthMirror/libHearthMirror.dylib $$OUT_PWD/HearthDuster.app/Contents/Frameworks/
 } else {
-    copydata.commands = $(COPY_DIR) $$shell_path($$PWD/resources/Cards) $$shell_path($$OUT_PWD)
+    copydata.commands = $(COPY_DIR) $$shell_path($$PWD/resources/Cards/*) $$shell_path($$OUT_PWD/release/Cards)
 }
 
 macx {
@@ -112,3 +116,6 @@ RESOURCES += \
 
 INCLUDEPATH += $$PWD/libs/HearthMirror
 DEPENDPATH += $$PWD/libs/HearthMirror
+
+DISTFILES += \
+    hearthduster.rc

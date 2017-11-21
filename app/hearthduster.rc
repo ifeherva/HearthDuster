@@ -1,0 +1,27 @@
+IDI_ICON1               ICON    DISCARDABLE     "resources/icons/icon.ico"
+1 VERSIONINFO
+FILEVERSION 0,8,0
+PRODUCTVERSION 0,8,0
+FILEOS 0x4
+FILETYPE 0x0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904B0"
+    BEGIN
+      VALUE "CompanyName", "Istvan Fehervari"
+      VALUE "FileDescription", "HearthDuster"
+      VALUE "FileVersion", "0,8,0"
+      VALUE "InternalName", "HearthDuster"
+      VALUE "LegalCopyright", "Copyright © 2017 Istvan Fehervari"
+      VALUE "OriginalFilename", "HearthDuster.exe"
+      VALUE "ProductName", "HearthDuster"
+      VALUE "ProductVersion", "0,8,0"
+    END
+  END
+
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x0409, 0x04B0
+  END
+END

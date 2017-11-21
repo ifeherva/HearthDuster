@@ -10,7 +10,7 @@
 
 QString JointDuplicatesGoldenDustStrategy::getName() const
 {
-    return "Minimum Playable Golden";
+    return "Minimum Playable Golden (keeping normal)";
 }
 
 QString JointDuplicatesGoldenDustStrategy::getDescription() const
