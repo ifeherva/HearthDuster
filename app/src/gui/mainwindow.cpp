@@ -47,6 +47,14 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
 
     ui->resultsTableWidget->clear();
+    ui->resultsTableWidget->setColumnCount(4);
+    ui->resultsTableWidget->setRowCount(0);
+    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Normal" << "Golden" << "Dust");
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->setSortingEnabled(true);
 
     ui->statusLabel->setText(tr(STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING));
 

@@ -1,6 +1,6 @@
 //
 //  duplicates.cpp
-//  Dusting strategies
+//  Strategy selecting duplicated cards
 //
 //  Created by Istvan Fehervari on 12/11/2017.
 //  Copyright © 2017 com.ifehervari. All rights reserved.

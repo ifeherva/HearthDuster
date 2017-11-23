@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -38,7 +38,8 @@ SOURCES += src/main.cpp\
     src/strategies/wild.cpp \
     src/strategies/jointduplicates.cpp \
     src/strategies/jointduplicatesgolden.cpp \
-    src/gui/aboutdialog.cpp
+    src/gui/aboutdialog.cpp \
+    src/strategies/cardpopularityduststrategy.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -51,7 +52,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/strategies/wild.h \
     src/strategies/jointduplicates.h \
     src/strategies/jointduplicatesgolden.h \
-    src/gui/aboutdialog.h
+    src/gui/aboutdialog.h \
+    src/strategies/cardpopularityduststrategy.h
 
 macx {
     HEADERS += src/utils/macutils.h

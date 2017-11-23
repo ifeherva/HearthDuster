@@ -12,6 +12,7 @@
 #include "jointduplicates.h"
 #include "jointduplicatesgolden.h"
 #include "wild.h"
+#include "cardpopularityduststrategy.h"
 
 #define INSTALL(strategy, vector) vector.push_back(new strategy);
 
@@ -21,7 +22,8 @@
     INSTALL(DuplicatesDustStrategy, strategyVector) \
     INSTALL(JointDuplicatesDustStrategy, strategyVector) \
     INSTALL(JointDuplicatesGoldenDustStrategy, strategyVector) \
-    INSTALL(WildDustStrategy, strategyVector)
+    INSTALL(WildDustStrategy, strategyVector) \
+    INSTALL(CardPopularityDustStrategy, strategyVector)
 
 
 

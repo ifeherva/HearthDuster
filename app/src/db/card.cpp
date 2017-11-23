@@ -8,14 +8,8 @@
 
 #include "card.h"
 #include <map>
-#include <QDebug>
 
-Card::Card(const QString& id) : id(id) {
-
-    /*
-    QVector<QString> referencedTags;
-    */
-}
+Card::Card(const QString& id) : id(id) {}
 
 QString ReadStringValue(const QJsonValue& value, QString defaultValue = "") {
     if (value ==  QJsonValue::Undefined || !value.isString()) return defaultValue;
@@ -49,8 +43,6 @@ std::map<QString, CardClass> cardClassMap = {{"NEUTRAL", CLASS_NEUTRAL},
 CardClass ReadCardClassValue(const QJsonValue& value, CardClass defaultValue = CLASS_NEUTRAL) {
     QString sValue = ReadStringValue(value, "NEUTRAL");
     if (!cardClassMap.count(sValue)) {
-        //TODO: log error invalid class
-        qDebug() << "Invalid card class: " << sValue;
         return defaultValue;
     }
     return cardClassMap[sValue];
@@ -65,8 +57,6 @@ std::map<QString, CardRarity> cardRarityMap = {{"FREE", RARITY_FREE},
 CardRarity ReadCardRarityValue(const QJsonValue& value, CardRarity defaultValue = RARITY_FREE) {
     QString sValue = ReadStringValue(value, "FREE");
     if (!cardRarityMap.count(sValue)) {
-        //TODO: log error invalid rarity
-        qDebug() << "Invalid card rarity: " << sValue;
         return defaultValue;
     }
     return cardRarityMap[sValue];
@@ -83,8 +73,6 @@ std::map<QString, CardType> cardTypeMap = {{"INVALID", TYPE_INVALID},
 CardType ReadCardTypeValue(const QJsonValue& value, CardType defaultValue = TYPE_INVALID) {
     QString sValue = ReadStringValue(value, "INVALID");
     if (!cardTypeMap.count(sValue)) {
-        //TODO: log error invalid type
-        qDebug() << "Invalid card type: " << sValue;
         return defaultValue;
     }
     return cardTypeMap[sValue];
