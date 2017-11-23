@@ -181,18 +181,21 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
         cardTableWidgetItem->setBackground(bgBrush);
         ui->resultsTableWidget->setItem(row, 0, cardTableWidgetItem);
 
-        auto normalCountTableWidgetItem = new QTableWidgetItem(QString::number(card.superfluous_normal));
+        auto normalCountTableWidgetItem = new QTableWidgetItem();
+        normalCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_normal);
         normalCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         normalCountTableWidgetItem->setBackground(bgBrush);
         ui->resultsTableWidget->setItem(row, 1, normalCountTableWidgetItem);
 
-        auto premiumCountTableWidgetItem = new QTableWidgetItem(QString::number(card.superfluous_premium));
+        auto premiumCountTableWidgetItem = new QTableWidgetItem();
+        premiumCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_premium);
         premiumCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         premiumCountTableWidgetItem->setBackground(bgBrush);
         ui->resultsTableWidget->setItem(row, 2, premiumCountTableWidgetItem);
 
         unsigned int dustValue = card.dustValue();
-        auto dustValueTableWidgetItem = new QTableWidgetItem(QString::number(dustValue));
+        auto dustValueTableWidgetItem = new QTableWidgetItem();
+        dustValueTableWidgetItem->setData(Qt::EditRole, dustValue);
         dustValueTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         dustValueTableWidgetItem->setBackground(bgBrush);
         ui->resultsTableWidget->setItem(row, 3, dustValueTableWidgetItem);
