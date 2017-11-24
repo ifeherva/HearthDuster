@@ -29,13 +29,20 @@ struct PopularityCard {
 class PopularityDataBase {
 
 public:
-    const PopularityCard* getCard(unsigned long dbfId) const;
-    void deserialize(const QString& source);
+    const PopularityCard* getCard(unsigned long dbfId, bool isStandard) const;
+    void deserialize(const QString& source, const DustStrategy* dustStrategy);
     unsigned long long getTotalPlayedCardsCount() {return totalPlayedCardsCount;}
 
+    unsigned long long getTotalPlayedCardsCountNonStandard() const {return totalPlayedCardsCountNonStandard;}
+    unsigned long long getTotalPlayedCardsCountStandard() const {return totalPlayedCardsCountStandard;}
+
 private:
-    std::map<unsigned long, PopularityCard> cards;
     unsigned long long totalPlayedCardsCount;
+    unsigned long long totalPlayedCardsCountNonStandard = 0;
+    unsigned long long totalPlayedCardsCountStandard = 0;
+
+    std::map<unsigned long, PopularityCard> nonStandardCards;
+    std::map<unsigned long, PopularityCard> standardCards;
 };
 
 class CardPopularityDustStrategy : public QObject, public DustStrategy

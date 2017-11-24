@@ -59,6 +59,7 @@ int CardsDb::initFromFile(const QString& cardsDbFile) {
         Card* card = CardFactory::FromJson((*it).toObject());
         if (card != NULL) {
             instance->cardsmap[card->id] = card;
+            instance->dbfIdmap[card->dbfId] = card;
         }
     }
 
@@ -69,6 +70,14 @@ const Card* CardsDb::cardForId(const QString& id)
 {
     if (instance->cardsmap.contains(id)) {
         return instance->cardsmap[id];
+    }
+    return NULL;
+}
+
+const Card* CardsDb::cardFordbfId(const unsigned long long& id)
+{
+    if (instance->dbfIdmap.contains(id)) {
+        return instance->dbfIdmap[id];
     }
     return NULL;
 }

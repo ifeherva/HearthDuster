@@ -26,6 +26,7 @@ public:
 
     static int initFromFile(const QString& cardsDbFile);
     static const Card* cardForId(const QString& id);
+    static const Card* cardFordbfId(const unsigned long long& id);
 
 private:
 
@@ -35,6 +36,7 @@ private:
     static void clear();
 
     QMap<QString, Card*> cardsmap;
+    QMap<unsigned long long, Card*> dbfIdmap;
 };
 
 #endif // CARDSDB_H

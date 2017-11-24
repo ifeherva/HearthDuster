@@ -17,7 +17,11 @@ bool DustStrategy::isCardElite(const CollectionCard& card) const
 
 bool DustStrategy::isStandard(const CollectionCard& card) const
 {
-    const Card* cardDef = CardsDb::cardForId(card.id);
+    return isStandard(CardsDb::cardForId(card.id));
+}
+
+bool DustStrategy::isStandard(const Card* cardDef) const
+{
     return (cardDef->set == CARD_SET_BASIC ||
             cardDef->set == CARD_SET_CLASSIC ||
             cardDef->set == CARD_SET_OLD_GODS ||

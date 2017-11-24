@@ -30,8 +30,8 @@ public:
 
     virtual DustPair getDustValue(const CollectionCard& card) const = 0;
 
-protected:
     bool isCardElite(const CollectionCard& card) const;
+    bool isStandard(const Card* cardDef) const;
     bool isStandard(const CollectionCard& card) const;
 };
 
