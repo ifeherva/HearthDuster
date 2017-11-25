@@ -31,6 +31,9 @@ MainWindow::MainWindow(QWidget *parent) :
     // build UI
     ui->setupUi(this);
 
+    statusLabel = new QLabel("");
+    ui->statusBar->addPermanentWidget(statusLabel);
+
     // build menu
     QMenu *helpMenu = new QMenu(tr("&Help"), this);
     QAction *aboutAction = helpMenu->addAction(tr("&About"));
@@ -57,9 +60,6 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultsTableWidget->setSortingEnabled(true);
 
     ui->statusLabel->setText(tr(STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING));
-
-    statusLabel = new QLabel("");
-    ui->statusBar->addPermanentWidget(statusLabel);
 
     QString locale = Preferences::getLocale();
     QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
@@ -225,6 +225,16 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
     }
     ui->resultsTableWidget->setSortingEnabled(true);
     statusLabel->setText("Total dust value: " + QString::number(sumDust));
+}
+
+void MainWindow::on_strategyError(const DustStrategy* strategy, QString error)
+{
+    QMessageBox::warning(this, strategy->getName(), error);
+}
+
+void MainWindow::on_strategyMessage(const DustStrategy* strategy, QString message)
+{
+    ui->statusBar->showMessage(strategy->getName() + ": " + message, 3000);
 }
 
 #ifdef __APPLE__

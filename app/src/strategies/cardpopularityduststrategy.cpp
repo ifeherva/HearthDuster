@@ -118,6 +118,7 @@ void PopularityDataBase::deserialize(const QString& standardData, const QString&
 
 CardPopularityDustStrategy::CardPopularityDustStrategy()
 {
+    emit sendMessage((const DustStrategy*)this, "Retrieving HSReplay.net data...");
     // download database
     networkAccessManager = new QNetworkAccessManager(this);
     connect(networkAccessManager, SIGNAL(finished(QNetworkReply*)),
@@ -135,6 +136,7 @@ void CardPopularityDustStrategy::replyFinished(QNetworkReply* reply)
 {
     if (reply->error()) {
         reply->deleteLater();
+        emit sendErrorMessage(this, "Failed to retrieve HSReplay.net data");
         return;
     }
     if (reply == standardReply) {
@@ -143,6 +145,7 @@ void CardPopularityDustStrategy::replyFinished(QNetworkReply* reply)
     } else {
         wildStringData = (QString) reply->readAll();
         database.deserialize(standardStringData, wildStringData, this);
+        emit sendMessage((const DustStrategy*)this, "Finished retrieving HSReplay.net data");
     }
 }
 

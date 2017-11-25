@@ -37,8 +37,8 @@ public:
     bool isStandard(const Card* cardDef) const;
     bool isStandard(const CollectionCard& card) const;
 signals:
-    void errorMessage(QString);
-    void busyMessage(QString);
+    void sendErrorMessage(const DustStrategy*, QString);
+    void sendMessage(const DustStrategy*, QString);
 };
 
 #endif // DUSTSTRATEGY_H

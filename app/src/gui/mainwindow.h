@@ -60,6 +60,8 @@ private:
 
 public slots:
     void on_syncCompleted(int error);
+    void on_strategyError(const DustStrategy* strategy, QString error);
+    void on_strategyMessage(const DustStrategy* strategy, QString message);
 
 private slots:
 #ifdef __APPLE__
