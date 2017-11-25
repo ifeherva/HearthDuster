@@ -8,10 +8,12 @@
 
 #include "gui/mainwindow.h"
 #include <QApplication>
+#include "utils/proxystyle.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    a.setStyle(new ProxyStyle);
     MainWindow w;
     w.show();
 

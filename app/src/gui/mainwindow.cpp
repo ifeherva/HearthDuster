@@ -196,6 +196,7 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
 
         auto cardTableWidgetItem = new QTableWidgetItem();
         cardTableWidgetItem->setData(Qt::EditRole, card.cardData->name);
+        cardTableWidgetItem->setData(Qt::ToolTipRole, card.cardData->shortDescription);
         cardTableWidgetItem->setForeground(rarityBrush);
         bool isStandard = strategy->isStandard(card.cardData);
         if (!isStandard) {

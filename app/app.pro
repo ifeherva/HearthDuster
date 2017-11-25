@@ -47,7 +47,8 @@ SOURCES += src/main.cpp\
     src/strategies/jointduplicates.cpp \
     src/strategies/jointduplicatesgolden.cpp \
     src/gui/aboutdialog.cpp \
-    src/strategies/cardpopularityduststrategy.cpp
+    src/strategies/cardpopularityduststrategy.cpp \
+    src/utils/proxystyle.cpp
 
 HEADERS  += src/gui/mainwindow.h \
     src/db/cardsdb.h \
@@ -61,7 +62,8 @@ HEADERS  += src/gui/mainwindow.h \
     src/strategies/jointduplicates.h \
     src/strategies/jointduplicatesgolden.h \
     src/gui/aboutdialog.h \
-    src/strategies/cardpopularityduststrategy.h
+    src/strategies/cardpopularityduststrategy.h \
+    src/utils/proxystyle.h
 
 macx {
     HEADERS += src/utils/macutils.h

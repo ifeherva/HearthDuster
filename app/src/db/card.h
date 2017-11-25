@@ -109,6 +109,7 @@ public:
     QString text;
     CardType type;
     CardRace race;
+    QString shortDescription;
 };
 
 class CardFactory {

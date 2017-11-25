@@ -103,6 +103,19 @@ Card* CardFactory::FromJson(const QJsonObject& jsonobject) {
 
     card->rarity = ReadCardRarityValue(jsonobject["rarity"], RARITY_FREE);
     card->type = ReadCardTypeValue(jsonobject["type"]);
-    return card;
 
+    switch (card->type) {
+    case TYPE_MINION:
+    case TYPE_WEAPON:
+        card->shortDescription = QString::number(card->cost) + " mana " + QString::number(card->attack)+"/"+QString::number(card->health)+"\n"+card->text;
+        break;
+    case TYPE_SPELL:
+        card->shortDescription = QString::number(card->cost) + " mana\n" + card->text;
+        break;
+    default:
+        card->shortDescription = "";
+        break;
+    }
+
+    return card;
 }
