@@ -52,7 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultsTableWidget->clear();
     ui->resultsTableWidget->setColumnCount(4);
     ui->resultsTableWidget->setRowCount(0);
-    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Normal" << "Golden" << "Dust");
+    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Format" << "Normal" << "Golden" << "Dust");
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
@@ -172,13 +172,14 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
 
     ui->resultsTableWidget->clear();
     ui->resultsTableWidget->setSortingEnabled(false);
-    ui->resultsTableWidget->setColumnCount(4);
+    ui->resultsTableWidget->setColumnCount(5);
     ui->resultsTableWidget->setRowCount(cardsList.size());
-    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Normal" << "Golden" << "Dust");
+    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Format" << "Normal" << "Golden" << "Dust");
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
 
     auto bgColor = QColor(165,143,121);
     auto palette = ui->resultsTableWidget->palette();
@@ -196,31 +197,38 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
         auto cardTableWidgetItem = new QTableWidgetItem();
         cardTableWidgetItem->setData(Qt::EditRole, card.cardData->name);
         cardTableWidgetItem->setForeground(rarityBrush);
-        if (!strategy->isStandard(card.cardData)) {
+        bool isStandard = strategy->isStandard(card.cardData);
+        if (!isStandard) {
             cardTableWidgetItem->setBackground(wildBrush);
         } else {
             cardTableWidgetItem->setBackgroundColor(bgColor);
         }
         ui->resultsTableWidget->setItem(row, 0, cardTableWidgetItem);
 
+        auto formatTableWidgetItem = new QTableWidgetItem();
+        formatTableWidgetItem->setData(Qt::EditRole, isStandard ? "Standard" : "Wild");
+        formatTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+        formatTableWidgetItem->setBackgroundColor(bgColor);
+        ui->resultsTableWidget->setItem(row, 1, formatTableWidgetItem);
+
         auto normalCountTableWidgetItem = new QTableWidgetItem();
         normalCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_normal);
         normalCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         normalCountTableWidgetItem->setBackgroundColor(bgColor);
-        ui->resultsTableWidget->setItem(row, 1, normalCountTableWidgetItem);
+        ui->resultsTableWidget->setItem(row, 2, normalCountTableWidgetItem);
 
         auto premiumCountTableWidgetItem = new QTableWidgetItem();
         premiumCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_premium);
         premiumCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         premiumCountTableWidgetItem->setBackgroundColor(bgColor);
-        ui->resultsTableWidget->setItem(row, 2, premiumCountTableWidgetItem);
+        ui->resultsTableWidget->setItem(row, 3, premiumCountTableWidgetItem);
 
         unsigned int dustValue = card.dustValue();
         auto dustValueTableWidgetItem = new QTableWidgetItem();
         dustValueTableWidgetItem->setData(Qt::EditRole, dustValue);
         dustValueTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         dustValueTableWidgetItem->setBackgroundColor(bgColor);
-        ui->resultsTableWidget->setItem(row, 3, dustValueTableWidgetItem);
+        ui->resultsTableWidget->setItem(row, 4, dustValueTableWidgetItem);
         sumDust += dustValue;
     }
     ui->resultsTableWidget->setSortingEnabled(true);
