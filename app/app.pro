@@ -27,6 +27,13 @@ CONFIG += c++11
 VERSION = 0.8.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
+
+CONFIG(debug, debug|release) {
+    DESTDIR= $$_PRO_FILE_PWD_/../build/debug/ #Target file directory
+} else {
+    DESTDIR= $$_PRO_FILE_PWD_/../build/release/ #Target file directory
+}
+
 SOURCES += src/main.cpp\
         src/gui/mainwindow.cpp \
     src/db/cardsdb.cpp \
@@ -84,8 +91,8 @@ macx: QMAKE_CXXFLAGS += -save-temps
 
 # copy cards data
 macx {
-    copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$OUT_PWD/HearthDuster.app/Contents/MacOS
-    copylibs.commands = mkdir -p $$OUT_PWD/HearthDuster.app/Contents/Frameworks && $(COPY_DIR) $$PWD/libs/HearthMirror/libHearthMirror.dylib $$OUT_PWD/HearthDuster.app/Contents/Frameworks/
+    copydata.commands = $(COPY_DIR) $$PWD/resources/Cards $$DESTDIR/HearthDuster.app/Contents/MacOS
+    copylibs.commands = mkdir -p $$DESTDIR/HearthDuster.app/Contents/Frameworks && $(COPY_DIR) $$PWD/libs/HearthMirror/libHearthMirror.dylib $$DESTDIR/HearthDuster.app/Contents/Frameworks/
 } else {
     copydata.commands = $(COPY_DIR) $$shell_path($$PWD/resources/Cards/*) $$shell_path($$OUT_PWD/release/Cards)
 }
