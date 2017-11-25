@@ -12,9 +12,8 @@
 #include <QJsonArray>
 #include "../db/cardsdb.h"
 
-#define DATABASE_URL "https://hsreplay.net/analytics/query/card_played_popularity_report/?GameType=RANKED_STANDARD&RankRange=ALL&TimeRange=LAST_14_DAYS"
-#define POPULARITY_THRESHOLD_STANDARD 0.001
-#define POPULARITY_THRESHOLD_NONSTANDARD 0.001
+#define DATABASE_URL_STANDARD "https://hsreplay.net/analytics/query/card_played_popularity_report/?GameType=RANKED_STANDARD&RankRange=ALL&TimeRange=LAST_14_DAYS"
+#define DATABASE_URL_WILD "https://hsreplay.net/analytics/query/card_played_popularity_report/?GameType=RANKED_WILD&RankRange=ALL&TimeRange=LAST_14_DAYS"
 
 const PopularityCard* PopularityDataBase::getCard(unsigned long dbfId, bool isStandard) const
 {
@@ -27,26 +26,39 @@ const PopularityCard* PopularityDataBase::getCard(unsigned long dbfId, bool isSt
             return &nonStandardCards.at(dbfId);
         }
     }
-
     return NULL;
 }
 
-void PopularityDataBase::deserialize(const QString& source, const DustStrategy* dustStrategy)
+QJsonArray getDataArray(const QString& data, QJsonParseError& error)
 {
-    QJsonParseError error;
-    QJsonDocument document =  QJsonDocument().fromJson(source.toUtf8(), &error);
+    QJsonDocument document =  QJsonDocument().fromJson(data.toUtf8(), &error);
     if (error.error != QJsonParseError::NoError) {
-        return;
+        return QJsonArray();
     }
 
     QJsonObject rootObject = document.object();
     QJsonObject seriesObject = rootObject["series"].toObject();
-    QJsonObject metaDataObject = seriesObject["metadata"].toObject();
-    totalPlayedCardsCount = metaDataObject["total_played_cards_count"].toVariant().toLongLong();
     QJsonObject dataObject = seriesObject["data"].toObject();
-    QJsonArray dataArray = dataObject["ALL"].toArray();
+    return dataObject["ALL"].toArray();
+}
 
-    for (auto it = dataArray.constBegin(); it != dataArray.end(); it++) {
+void PopularityDataBase::deserialize(const QString& standardData, const QString& wildData, const DustStrategy* dustStrategy)
+{
+    QJsonParseError error;
+
+    QJsonArray standardArray = getDataArray(standardData, error);
+    if (error.error != QJsonParseError::NoError) {
+        return;
+    }
+    QJsonArray wildArray = getDataArray(wildData, error);
+    if (error.error != QJsonParseError::NoError) {
+        return;
+    }
+
+    std::map<unsigned long, unsigned long long> gamesPlayedStandard;
+    std::map<unsigned long, unsigned long long> gamesPlayedNonStandard;
+
+    for (auto it = standardArray.constBegin(); it != standardArray.end(); it++) {
         QJsonObject entry = (*it).toObject();
         PopularityCard card(entry["dbf_id"].toVariant().toULongLong(),
                 entry["popularity"].toDouble(), entry["winrate"].toDouble(), entry["total"].toVariant().toULongLong());
@@ -55,21 +67,63 @@ void PopularityDataBase::deserialize(const QString& source, const DustStrategy* 
         if (dustStrategy->isStandard(cardDef)) {
             standardCards[card.dbfId] = card;
             totalPlayedCardsCountStandard += card.totalGames;
+            gamesPlayedStandard[card.dbfId] = card.totalGames;
         } else {
             nonStandardCards[card.dbfId] = card;
             totalPlayedCardsCountNonStandard += card.totalGames;
+            gamesPlayedNonStandard[card.dbfId] = card.totalGames;
         }
     }
+
+    for (auto it = wildArray.constBegin(); it != wildArray.end(); it++) {
+        QJsonObject entry = (*it).toObject();
+        PopularityCard card(entry["dbf_id"].toVariant().toULongLong(),
+                entry["popularity"].toDouble(), entry["winrate"].toDouble(), entry["total"].toVariant().toULongLong());
+
+        const Card* cardDef = CardsDb::cardFordbfId(card.dbfId);
+        if (dustStrategy->isStandard(cardDef)) {
+            standardCards[card.dbfId] = card;
+            totalPlayedCardsCountStandard += card.totalGames;
+            if (gamesPlayedStandard.count(card.dbfId)) {
+                gamesPlayedStandard[card.dbfId] = gamesPlayedStandard[card.dbfId] + card.totalGames;
+            } else {
+                gamesPlayedStandard[card.dbfId] = card.totalGames;
+            }
+        } else {
+            nonStandardCards[card.dbfId] = card;
+            totalPlayedCardsCountNonStandard += card.totalGames;
+            if (gamesPlayedNonStandard.count(card.dbfId)) {
+                gamesPlayedNonStandard[card.dbfId] = gamesPlayedNonStandard[card.dbfId] + card.totalGames;
+            } else {
+                gamesPlayedNonStandard[card.dbfId] = card.totalGames;
+            }
+        }
+    }
+
+    // compute threshold based on Q1
+    std::vector<unsigned long long> standardPlayed;
+    std::vector<unsigned long long> nonStandardPlayed;
+    for (auto it = gamesPlayedStandard.begin(); it != gamesPlayedStandard.end(); ++it) {
+        standardPlayed.push_back(it->second);
+    }
+    for (auto it = gamesPlayedNonStandard.begin(); it != gamesPlayedNonStandard.end(); ++it) {
+        nonStandardPlayed.push_back(it->second);
+    }
+    std::sort(standardPlayed.begin(), standardPlayed.end());
+    std::sort(nonStandardPlayed.begin(), nonStandardPlayed.end());
+
+    standardThreshold = (double)standardPlayed[standardPlayed.size()/4] / totalPlayedCardsCountStandard;
+    nonStandardThreshold = (double)nonStandardPlayed[nonStandardPlayed.size()/4] / totalPlayedCardsCountNonStandard;
 }
 
-CardPopularityDustStrategy::CardPopularityDustStrategy(QObject *parent) : QObject(parent)
+CardPopularityDustStrategy::CardPopularityDustStrategy()
 {
     // download database
     networkAccessManager = new QNetworkAccessManager(this);
     connect(networkAccessManager, SIGNAL(finished(QNetworkReply*)),
             this, SLOT(replyFinished(QNetworkReply*)));
 
-    networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL)));
+    standardReply = networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL_STANDARD)));
 }
 
 CardPopularityDustStrategy::~CardPopularityDustStrategy()
@@ -83,8 +137,13 @@ void CardPopularityDustStrategy::replyFinished(QNetworkReply* reply)
         reply->deleteLater();
         return;
     }
-    QString data = (QString) reply->readAll();
-    database.deserialize(data, this);
+    if (reply == standardReply) {
+        standardStringData = (QString) reply->readAll();
+        wildReply = networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL_WILD)));
+    } else {
+        wildStringData = (QString) reply->readAll();
+        database.deserialize(standardStringData, wildStringData, this);
+    }
 }
 
 QString CardPopularityDustStrategy::getName() const
@@ -108,7 +167,7 @@ DustPair CardPopularityDustStrategy::getDustValue(const CollectionCard& card) co
         popularityCard = database.getCard(cardDef->dbfId, true);
         if (popularityCard != NULL) {
             popularity = (double)popularityCard->totalGames / database.getTotalPlayedCardsCountStandard();
-            popularityThreshold = POPULARITY_THRESHOLD_STANDARD;
+            popularityThreshold = database.getStandardThreshold();
         } else {
             return result;
         }
@@ -116,7 +175,7 @@ DustPair CardPopularityDustStrategy::getDustValue(const CollectionCard& card) co
         popularityCard = database.getCard(cardDef->dbfId, false);
         if (popularityCard != NULL) {
             popularity = (double)popularityCard->totalGames / database.getTotalPlayedCardsCountNonStandard();
-            popularityThreshold = POPULARITY_THRESHOLD_NONSTANDARD;
+            popularityThreshold = database.getNonStandardThreshold();
         } else {
             return result;
         }

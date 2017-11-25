@@ -12,6 +12,7 @@
 #include "../duststrategy.h"
 
 class JointDuplicatesGoldenDustStrategy : public DustStrategy {
+    Q_OBJECT
 public:
     virtual QString getName() const;
     virtual QString getDescription() const;

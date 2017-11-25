@@ -146,18 +146,18 @@ void MainWindow::showAboutBox()
     aboutBox->exec();
 }
 
-QBrush getBrush(const CardRarity& rarity)
+QColor getRarityColor(const CardRarity& rarity)
 {
     switch (rarity) {
         case RARITY_FREE:
         case RARITY_COMMON:
-            return QBrush(QColor(233, 239, 235));
+            return QColor(233, 239, 235);
         case RARITY_RARE:
-            return QBrush(QColor(27, 95, 178));
+            return QColor(27, 95, 178);
         case RARITY_EPIC:
-            return QBrush(QColor(191, 45, 204));
+            return QColor(191, 45, 204);
         case RARITY_LEGENDARY:
-            return QBrush(QColor(208, 124, 10));
+            return QColor(255, 147, 0);
     }
 }
 
@@ -180,32 +180,46 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
 
+    auto bgColor = QColor(165,143,121);
+    auto palette = ui->resultsTableWidget->palette();
+    palette.setColor(QPalette::Base, bgColor);
+    ui->resultsTableWidget->setPalette(palette);
+
+    auto wildBrush = QBrush(QColor(66, 73, 19));
+    wildBrush.setStyle(Qt::BDiagPattern);
+
     unsigned int sumDust = 0;
     for (unsigned int row = 0; row < cardsList.size(); row++) {
         auto card = cardsList[row];
-        auto bgBrush = getBrush(card.cardData->rarity);
+        auto rarityBrush = QBrush(getRarityColor(card.cardData->rarity));
 
-        auto cardTableWidgetItem = new QTableWidgetItem(card.cardData->name);
-        cardTableWidgetItem->setBackground(bgBrush);
+        auto cardTableWidgetItem = new QTableWidgetItem();
+        cardTableWidgetItem->setData(Qt::EditRole, card.cardData->name);
+        cardTableWidgetItem->setForeground(rarityBrush);
+        if (!strategy->isStandard(card.cardData)) {
+            cardTableWidgetItem->setBackground(wildBrush);
+        } else {
+            cardTableWidgetItem->setBackgroundColor(bgColor);
+        }
         ui->resultsTableWidget->setItem(row, 0, cardTableWidgetItem);
 
         auto normalCountTableWidgetItem = new QTableWidgetItem();
         normalCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_normal);
         normalCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        normalCountTableWidgetItem->setBackground(bgBrush);
+        normalCountTableWidgetItem->setBackgroundColor(bgColor);
         ui->resultsTableWidget->setItem(row, 1, normalCountTableWidgetItem);
 
         auto premiumCountTableWidgetItem = new QTableWidgetItem();
         premiumCountTableWidgetItem->setData(Qt::EditRole, card.superfluous_premium);
         premiumCountTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        premiumCountTableWidgetItem->setBackground(bgBrush);
+        premiumCountTableWidgetItem->setBackgroundColor(bgColor);
         ui->resultsTableWidget->setItem(row, 2, premiumCountTableWidgetItem);
 
         unsigned int dustValue = card.dustValue();
         auto dustValueTableWidgetItem = new QTableWidgetItem();
         dustValueTableWidgetItem->setData(Qt::EditRole, dustValue);
         dustValueTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
-        dustValueTableWidgetItem->setBackground(bgBrush);
+        dustValueTableWidgetItem->setBackgroundColor(bgColor);
         ui->resultsTableWidget->setItem(row, 3, dustValueTableWidgetItem);
         sumDust += dustValue;
     }

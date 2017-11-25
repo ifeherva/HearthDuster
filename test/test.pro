@@ -26,12 +26,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
+HEADERS  += ../app/src/db/cardsdb.h \
+        ../app/src/db/card.h \
+        ../app/src/collection.h \
+        ../app/src/duststrategy.h \
+        ../app/src/strategies/jointduplicates.h \
+        ../app/src/strategies/jointduplicatesgolden.h
+
 SOURCES += \
         ../app/src/db/cardsdb.cpp \
         ../app/src/db/card.cpp \
         ../app/src/duststrategy.cpp \
         ../app/src/strategies/jointduplicates.cpp \
         ../app/src/strategies/jointduplicatesgolden.cpp \
-    strategies/tst_strategies.cpp
+        strategies/tst_strategies.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"

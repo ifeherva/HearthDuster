@@ -29,7 +29,7 @@ void DustStrategyTest::initTestCase()
 
 void DustStrategyTest::testJointDuplicatesDustStrategy()
 {
-    JointDuplicatesDustStrategy strategy = JointDuplicatesDustStrategy();
+    JointDuplicatesDustStrategy strategy;
 
     // rare card
     CollectionCard card = CollectionCard("AT_001", 0, 0);
@@ -69,7 +69,7 @@ void DustStrategyTest::testJointDuplicatesDustStrategy()
 
 void DustStrategyTest::testJointDuplicatesGoldenDustStrategy()
 {
-    JointDuplicatesGoldenDustStrategy strategy = JointDuplicatesGoldenDustStrategy();
+    JointDuplicatesGoldenDustStrategy strategy;
 
     // rare card
     CollectionCard card = CollectionCard("AT_001", 0, 0);

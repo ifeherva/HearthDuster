@@ -9,6 +9,7 @@
 #define DUSTSTRATEGY_H
 
 #include "db/card.h"
+#include <QObject>
 
 struct DustPair {
     unsigned int normal = 0;
@@ -19,7 +20,9 @@ struct DustPair {
     }
 };
 
-class DustStrategy {
+class DustStrategy : public QObject {
+
+    Q_OBJECT
 
 public:
     DustStrategy() {}
@@ -33,6 +36,9 @@ public:
     bool isCardElite(const CollectionCard& card) const;
     bool isStandard(const Card* cardDef) const;
     bool isStandard(const CollectionCard& card) const;
+signals:
+    void errorMessage(QString);
+    void busyMessage(QString);
 };
 
 #endif // DUSTSTRATEGY_H
