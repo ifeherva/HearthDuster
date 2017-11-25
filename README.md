@@ -2,10 +2,10 @@
 Need some dust? Don't know what to disenchant? HearthDuster shows you what cards you can safely disenchant to keep your collection at a playable level.
 
 ## Download
-The current version is 0.8. See the [release notes](ReleaseNotes.md) for latest changes.
+The current version is 0.9. See the [release notes](ReleaseNotes.md) for latest changes.
 
-- [MacOS](https://github.com/ifeherva/HearthDuster/releases/download/v0.8.0/HearthDuster_0_8_0.dmg)
-- [Windows](https://github.com/ifeherva/HearthDuster/releases/download/v0.8.0/HearthDuster_0_8_0.zip)
+- [MacOS](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.0/HearthDuster_0_9_0_macOS.dmg)
+- [Windows](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.0/HearthDuster_0_9_0_win64.zip)
 
 ## How does it work?
 HearthDuster reads your card collection and recommends cards that you can disenchant based on one of the following strategies:
