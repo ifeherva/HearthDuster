@@ -5,5 +5,5 @@
 
 ## 0.9.0 (unreleased)
 - Added a new strategy using card popularity data from HSReplay.net
-- Improved the GUI
+- Improved the GUI, added card tooltips
 - Fixed several small bugs

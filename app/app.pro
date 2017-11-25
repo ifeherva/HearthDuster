@@ -27,6 +27,7 @@ CONFIG += c++11
 VERSION = 0.9.0
 DEFINES += APP_VERSION=\\\"$$VERSION\\\"
 
+macx: QMAKE_MACOSX_DEPLOYMENT_TARGET = 10.10
 
 CONFIG(debug, debug|release) {
     DESTDIR= $$_PRO_FILE_PWD_/../build/debug/ #Target file directory
