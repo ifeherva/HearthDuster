@@ -53,10 +53,10 @@ class CardPopularityDustStrategy : public DustStrategy
 public:
     CardPopularityDustStrategy();
     virtual ~CardPopularityDustStrategy();
-    virtual QString getName() const;
-    virtual QString getDescription() const;
+    virtual QString name() const;
+    virtual QString description() const;
 
-    virtual DustPair getDustValue(const CollectionCard& card) const;
+    virtual DustPair dustValue(const CollectionCard& card) const;
 private:
     QNetworkAccessManager *networkAccessManager = NULL;
     PopularityDataBase database;

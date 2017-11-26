@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
     INSTALL_STRATEGIES(strategies)
 
     for (unsigned int i = 0; i < strategies.size(); i++) {
-        ui->strategiesComboBox->addItem(strategies[i]->getName());
-        ui->strategiesComboBox->setItemData(i, strategies[i]->getDescription(), Qt::ToolTipRole);
+        ui->strategiesComboBox->addItem(strategies[i]->name());
+        ui->strategiesComboBox->setItemData(i, strategies[i]->description(), Qt::ToolTipRole);
     }
     connect(ui->strategiesComboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(updateCardTable(int)) );
 
@@ -170,16 +170,25 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
         ui->resultsTableWidget->setEnabled(false);
     }
 
+    auto extraColumns = strategy->extraParams();
+
     ui->resultsTableWidget->clear();
     ui->resultsTableWidget->setSortingEnabled(false);
-    ui->resultsTableWidget->setColumnCount(5);
+    ui->resultsTableWidget->setColumnCount(5 + extraColumns.size());
     ui->resultsTableWidget->setRowCount(cardsList.size());
-    ui->resultsTableWidget->setHorizontalHeaderLabels(QStringList() << "Card" << "Format" << "Normal" << "Golden" << "Dust");
+    auto headerLabels = QStringList() << "Card" << "Format" << "Normal" << "Golden" << "Dust";
+    for (auto extraColumn : extraColumns) {
+        headerLabels << extraColumn;
+    }
+    ui->resultsTableWidget->setHorizontalHeaderLabels(headerLabels);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(1, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(2, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
     ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+    for (unsigned int i = 0; i < extraColumns.size(); i++) {
+        ui->resultsTableWidget->horizontalHeader()->setSectionResizeMode(5+i, QHeaderView::ResizeToContents);
+    }
 
     auto bgColor = QColor(165,143,121);
     auto palette = ui->resultsTableWidget->palette();
@@ -231,6 +240,15 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
         dustValueTableWidgetItem->setBackgroundColor(bgColor);
         ui->resultsTableWidget->setItem(row, 4, dustValueTableWidgetItem);
         sumDust += dustValue;
+
+        for (unsigned int i = 0; i < extraColumns.size(); i++) {
+            auto userValue = card.userData[i];
+            auto extraTableWidgetItem = new QTableWidgetItem();
+            extraTableWidgetItem->setData(Qt::EditRole, userValue);
+            extraTableWidgetItem->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
+            extraTableWidgetItem->setBackgroundColor(bgColor);
+            ui->resultsTableWidget->setItem(row, 5+i, extraTableWidgetItem);
+        }
     }
     ui->resultsTableWidget->setSortingEnabled(true);
     statusLabel->setText("Total dust value: " + QString::number(sumDust));
@@ -238,12 +256,12 @@ void MainWindow::updateCardTable(const DustStrategy* strategy)
 
 void MainWindow::on_strategyError(const DustStrategy* strategy, QString error)
 {
-    QMessageBox::warning(this, strategy->getName(), error);
+    QMessageBox::warning(this, strategy->name(), error);
 }
 
 void MainWindow::on_strategyMessage(const DustStrategy* strategy, QString message)
 {
-    ui->statusBar->showMessage(strategy->getName() + ": " + message, 3000);
+    ui->statusBar->showMessage(strategy->name() + ": " + message, 3000);
 }
 
 #ifdef __APPLE__

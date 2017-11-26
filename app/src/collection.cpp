@@ -94,9 +94,9 @@ std::vector<DustStrategyResult> Collection::getCardsFor(const DustStrategy* cons
         
         if ((cardDef->rarity == RARITY_FREE) && (excludeNonDustable)) continue;
 
-        auto dustValue = dustStrategy->getDustValue(it->second);
+        auto dustValue = dustStrategy->dustValue(it->second);
         if (!dustValue.isEmpty()) {
-            result.push_back(DustStrategyResult(cardDef, dustValue.normal, dustValue.premium));
+            result.push_back(DustStrategyResult(cardDef, dustValue.normal, dustValue.premium, dustValue.userData));
         }
     }
     return result;

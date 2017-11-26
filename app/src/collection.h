@@ -17,36 +17,22 @@ struct DustStrategyResult {
     const Card* cardData;
     const unsigned int superfluous_normal;
     const unsigned int superfluous_premium;
+    const std::vector<QVariant> userData;
 
     DustStrategyResult(const Card* cardData,
                        unsigned int superfluous_normal,
-                       unsigned int superfluous_premium) :
+                       unsigned int superfluous_premium,
+                       std::vector<QVariant>& userData) :
         cardData(cardData),
         superfluous_normal(superfluous_normal),
-        superfluous_premium(superfluous_premium) {}
+        superfluous_premium(superfluous_premium),
+        userData(userData){}
 
     bool isEmpty() {
         return superfluous_normal == 0 && superfluous_premium == 0;
     }
 
     unsigned int dustValue();
-/*
-    bool operator < (const DustStrategyResult& rhs) const {
-        // legendaries
-        if (rhs.cardData->elite && !this->cardData->elite) {
-            return true;
-        }
-        if (!rhs.cardData->elite && this->cardData->elite) {
-            return false;
-        }
-        if (rhs.cardData->elite && this->cardData->elite) {
-            return this->cardData->name < rhs.cardData->name;
-        }
-        if (this->cardData->rarity != rhs.cardData->rarity) {
-            return this->cardData->rarity > rhs.cardData->rarity;
-        }
-        return true;
-    }*/
 };
 
 enum SynchError {

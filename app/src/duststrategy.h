@@ -10,10 +10,13 @@
 
 #include "db/card.h"
 #include <QObject>
+#include <QString>
+#include <QVariant>
 
 struct DustPair {
     unsigned int normal = 0;
     unsigned int premium = 0;
+    std::vector<QVariant> userData;
 
     bool isEmpty() {
         return normal == 0 && premium == 0;
@@ -28,14 +31,18 @@ public:
     DustStrategy() {}
     virtual ~DustStrategy() {}
 
-    virtual QString getName() const = 0;
-    virtual QString getDescription() const = 0;
+    virtual QString name() const = 0;
+    virtual QString description() const = 0;
 
-    virtual DustPair getDustValue(const CollectionCard& card) const = 0;
+    virtual DustPair dustValue(const CollectionCard& card) const = 0;
+
+    virtual const std::vector<QString>& extraParams() const {return m_extraParams;}
 
     bool isCardElite(const CollectionCard& card) const;
     bool isStandard(const Card* cardDef) const;
     bool isStandard(const CollectionCard& card) const;
+protected:
+    std::vector<QString> m_extraParams;
 signals:
     void sendErrorMessage(const DustStrategy*, QString);
     void sendMessage(const DustStrategy*, QString);

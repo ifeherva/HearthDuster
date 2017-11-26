@@ -8,18 +8,18 @@
 
 #include "duplicates.h"
 
-QString DuplicatesDustStrategy::getName() const
+QString DuplicatesDustStrategy::name() const
 {
     return "Duplicates";
 }
 
-QString DuplicatesDustStrategy::getDescription() const
+QString DuplicatesDustStrategy::description() const
 {
     return "Selects cards that have more copies than the playable limit."
            " This will not change functional or cosmetic property of the collection.";
 }
 
-DustPair DuplicatesDustStrategy::getDustValue(const CollectionCard& card) const
+DustPair DuplicatesDustStrategy::dustValue(const CollectionCard& card) const
 {
     DustPair result;
     bool isElite = isCardElite(card);

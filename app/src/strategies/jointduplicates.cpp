@@ -8,18 +8,18 @@
 
 #include "jointduplicates.h"
 
-QString JointDuplicatesDustStrategy::getName() const
+QString JointDuplicatesDustStrategy::name() const
 {
     return "Minimum Playable (keeping gold)";
 }
 
-QString JointDuplicatesDustStrategy::getDescription() const
+QString JointDuplicatesDustStrategy::description() const
 {
     return "Selects cards that have altogether more copies than the individual playable limit."
            " This will not change functional & but will change cosmetic property of the collection.";
 }
 
-DustPair JointDuplicatesDustStrategy::getDustValue(const CollectionCard& card) const
+DustPair JointDuplicatesDustStrategy::dustValue(const CollectionCard& card) const
 {
     DustPair result;
     bool isElite = isCardElite(card);

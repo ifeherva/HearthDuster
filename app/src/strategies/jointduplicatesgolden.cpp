@@ -8,18 +8,18 @@
 
 #include "jointduplicatesgolden.h"
 
-QString JointDuplicatesGoldenDustStrategy::getName() const
+QString JointDuplicatesGoldenDustStrategy::name() const
 {
     return "Minimum Playable Golden (keeping normal)";
 }
 
-QString JointDuplicatesGoldenDustStrategy::getDescription() const
+QString JointDuplicatesGoldenDustStrategy::description() const
 {
     return "Selects golden cards that have altogether more copies than the individual playable limit."
            " This will not change functional & but will change cosmetic property of the collection.";
 }
 
-DustPair JointDuplicatesGoldenDustStrategy::getDustValue(const CollectionCard& card) const
+DustPair JointDuplicatesGoldenDustStrategy::dustValue(const CollectionCard& card) const
 {
     DustPair result;
     bool isElite = isCardElite(card);

@@ -149,17 +149,17 @@ void CardPopularityDustStrategy::replyFinished(QNetworkReply* reply)
     }
 }
 
-QString CardPopularityDustStrategy::getName() const
+QString CardPopularityDustStrategy::name() const
 {
     return "Popularity";
 }
 
-QString CardPopularityDustStrategy::getDescription() const
+QString CardPopularityDustStrategy::description() const
 {
     return "Selects cards that are unpopular in the current meta based on the last 14 days using HSReplay.net data.";
 }
 
-DustPair CardPopularityDustStrategy::getDustValue(const CollectionCard& card) const
+DustPair CardPopularityDustStrategy::dustValue(const CollectionCard& card) const
 {
     DustPair result;
     const Card* cardDef = CardsDb::cardForId(card.id);
