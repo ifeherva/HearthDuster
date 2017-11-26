@@ -65,6 +65,10 @@ SynchError Collection::sync()
     } catch (std::exception&) {
         return InvalidCollectionData;
     }
+
+    if (cards.size() == 0) {
+        return InvalidCollectionData;
+    }
     
     for (auto card : cards) {
         QString cardid = QString::fromStdU16String(card.id);

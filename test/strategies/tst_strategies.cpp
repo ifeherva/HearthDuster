@@ -38,7 +38,7 @@ void DustStrategyTest::testJointDuplicatesDustStrategy()
     QCOMPARE(card.normalCount, 0u);
     QCOMPARE(card.premiumCount, 0u);
 
-    auto dv = strategy.getDustValue(card);
+    auto dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 0u);
     QCOMPARE(dv.premium, 0u);
 
@@ -46,7 +46,7 @@ void DustStrategyTest::testJointDuplicatesDustStrategy()
     card.normalCount = 3;
     card.premiumCount = 0;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 1u);
     QCOMPARE(dv.premium, 0u);
 
@@ -54,7 +54,7 @@ void DustStrategyTest::testJointDuplicatesDustStrategy()
     card.normalCount = 3;
     card.premiumCount = 4;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 3u);
     QCOMPARE(dv.premium, 2u);
 
@@ -62,7 +62,7 @@ void DustStrategyTest::testJointDuplicatesDustStrategy()
     card.normalCount = 0;
     card.premiumCount = 3;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 0u);
     QCOMPARE(dv.premium, 1u);
 }
@@ -78,7 +78,7 @@ void DustStrategyTest::testJointDuplicatesGoldenDustStrategy()
     QCOMPARE(card.normalCount, 0u);
     QCOMPARE(card.premiumCount, 0u);
 
-    auto dv = strategy.getDustValue(card);
+    auto dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 0u);
     QCOMPARE(dv.premium, 0u);
 
@@ -86,7 +86,7 @@ void DustStrategyTest::testJointDuplicatesGoldenDustStrategy()
     card.normalCount = 3;
     card.premiumCount = 0;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 1u);
     QCOMPARE(dv.premium, 0u);
 
@@ -94,7 +94,7 @@ void DustStrategyTest::testJointDuplicatesGoldenDustStrategy()
     card.normalCount = 3;
     card.premiumCount = 4;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 1u);
     QCOMPARE(dv.premium, 4u);
 
@@ -102,7 +102,7 @@ void DustStrategyTest::testJointDuplicatesGoldenDustStrategy()
     card.normalCount = 1;
     card.premiumCount = 3;
 
-    dv = strategy.getDustValue(card);
+    dv = strategy.dustValue(card);
     QCOMPARE(dv.normal, 0u);
     QCOMPARE(dv.premium, 2u);
 }
