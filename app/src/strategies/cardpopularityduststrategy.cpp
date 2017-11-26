@@ -58,6 +58,9 @@ void PopularityDataBase::deserialize(const QString& standardData, const QString&
     std::map<unsigned long, unsigned long long> gamesPlayedStandard;
     std::map<unsigned long, unsigned long long> gamesPlayedNonStandard;
 
+    totalPlayedCardsCountStandard = 0;
+    totalPlayedCardsCountNonStandard = 0;
+
     for (auto it = standardArray.constBegin(); it != standardArray.end(); it++) {
         QJsonObject entry = (*it).toObject();
         PopularityCard card(entry["dbf_id"].toVariant().toULongLong(),
@@ -118,6 +121,8 @@ void PopularityDataBase::deserialize(const QString& standardData, const QString&
 
 CardPopularityDustStrategy::CardPopularityDustStrategy()
 {
+    m_extraParams.clear();
+    m_extraParams.push_back("Popularity");
     emit sendMessage((const DustStrategy*)this, "Retrieving HSReplay.net data...");
     // download database
     networkAccessManager = new QNetworkAccessManager(this);
@@ -187,6 +192,7 @@ DustPair CardPopularityDustStrategy::dustValue(const CollectionCard& card) const
     if (popularity < popularityThreshold) {
         result.normal = card.normalCount;
         result.premium = card.premiumCount;
+        result.userData.push_back(QVariant(QString().asprintf("%.2f%%",popularity*100.0)));
     }
 
     return result;
