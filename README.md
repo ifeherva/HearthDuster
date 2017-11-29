@@ -1,5 +1,7 @@
 # HearthDuster
-Need some dust? Don't know what to disenchant? HearthDuster shows you what cards you can safely disenchant to keep your collection at a playable level.
+Need some dust? Don't know what to disenchant? HearthDuster reads your card collection automatically and shows you what cards you can safely disenchant to keep your collection at a playable level or recommends you cards that are unpopular in the current meta.
+![](screen1.png)
+![](screen2.png)
 
 ## Download
 The current version is 0.9.1 See the [release notes](ReleaseNotes.md) for latest changes.
