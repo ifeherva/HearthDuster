@@ -10,10 +10,16 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QFile>
+#include <QDir>
+#include <QStandardPaths>
 #include "../db/cardsdb.h"
+#include "../preferences/preferences.h"
 
 #define DATABASE_URL_STANDARD "https://hsreplay.net/analytics/query/card_played_popularity_report/?GameType=RANKED_STANDARD&RankRange=ALL&TimeRange=LAST_14_DAYS"
 #define DATABASE_URL_WILD "https://hsreplay.net/analytics/query/card_played_popularity_report/?GameType=RANKED_WILD&RankRange=ALL&TimeRange=LAST_14_DAYS"
+#define WILD_FILE_NAME "wild.json"
+#define STANDARD_FILE_NAME "standard.json"
 
 const PopularityCard* PopularityDataBase::getCard(unsigned long dbfId, bool isStandard) const
 {
@@ -123,13 +129,40 @@ CardPopularityDustStrategy::CardPopularityDustStrategy()
 {
     m_extraParams.clear();
     m_extraParams.push_back("Popularity");
-    emit sendMessage((const DustStrategy*)this, "Retrieving HSReplay.net data...");
-    // download database
-    networkAccessManager = new QNetworkAccessManager(this);
-    connect(networkAccessManager, SIGNAL(finished(QNetworkReply*)),
-            this, SLOT(replyFinished(QNetworkReply*)));
 
-    standardReply = networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL_STANDARD)));
+    wildStringData = "";
+    if (Preferences::CardPopularityDustStrategy_dataFetchDate().daysTo(QDateTime::currentDateTime()) < 1) {
+        // try to open stored data
+        QString wildLocation = QStandardPaths::locate(QStandardPaths::AppDataLocation, WILD_FILE_NAME);
+        if (wildLocation != "") {
+            QFile wildFile(wildLocation);
+            if (wildFile.open(QFile::ReadOnly | QFile::Text)) {
+                QTextStream in(&wildFile);
+                wildStringData = in.readAll();
+            }
+        }
+
+        QString standardLocation = QStandardPaths::locate(QStandardPaths::AppDataLocation, STANDARD_FILE_NAME);
+        if (standardLocation != "") {
+            QFile standardFile(standardLocation);
+            if (standardFile.open(QFile::ReadOnly | QFile::Text)) {
+                QTextStream in(&standardFile);
+                standardStringData = in.readAll();
+            }
+        }
+    }
+
+    if (wildStringData == "" || standardStringData == "") {
+        emit sendMessage((const DustStrategy*)this, "Retrieving HSReplay.net data...");
+        // download database
+        networkAccessManager = new QNetworkAccessManager(this);
+        connect(networkAccessManager, SIGNAL(finished(QNetworkReply*)),
+                this, SLOT(replyFinished(QNetworkReply*)));
+
+        standardReply = networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL_STANDARD)));
+    } else {
+        database.deserialize(standardStringData, wildStringData, this);
+    }
 }
 
 CardPopularityDustStrategy::~CardPopularityDustStrategy()
@@ -149,8 +182,29 @@ void CardPopularityDustStrategy::replyFinished(QNetworkReply* reply)
         wildReply = networkAccessManager->get(QNetworkRequest(QUrl(DATABASE_URL_WILD)));
     } else {
         wildStringData = (QString) reply->readAll();
-        database.deserialize(standardStringData, wildStringData, this);
         emit sendMessage((const DustStrategy*)this, "Finished retrieving HSReplay.net data");
+        database.deserialize(standardStringData, wildStringData, this);
+
+        // update fetch time
+        Preferences::CardPopularityDustStrategy_setDataFetchDate(QDateTime::currentDateTime());
+
+        // save data to files
+        auto appFolder = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
+        if (!QDir(appFolder).exists()) {
+            QDir().mkdir(appFolder);
+        }
+
+        QFile wildFile(appFolder + "/" + WILD_FILE_NAME);
+        if (wildFile.open(QFile::WriteOnly | QFile::Text)) {
+            QTextStream stream(&wildFile);
+            stream << wildStringData;
+        }
+
+        QFile standardFile(appFolder + "/" + STANDARD_FILE_NAME);
+        if (standardFile.open(QFile::WriteOnly | QFile::Text)) {
+            QTextStream stream(&standardFile);
+            stream << standardStringData;
+        }
     }
 }
 

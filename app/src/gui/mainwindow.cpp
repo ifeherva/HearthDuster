@@ -31,6 +31,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // build UI
     ui->setupUi(this);
 
+    // init database from locale
+    QString locale = Preferences::getLocale();
+    QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
+
+    if (CardsDb::initFromFile(carddbpath)) {
+        QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to load cards database file! Program will now exit."));
+        QCoreApplication::exit();
+    }
+
     statusLabel = new QLabel("");
     ui->statusBar->addPermanentWidget(statusLabel);
 
@@ -61,14 +70,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->statusLabel->setText(tr(STATUS_MESSAGE_HEARTHSTONE_NOT_RUNNING));
 
-    QString locale = Preferences::getLocale();
-    QString carddbpath = QFileInfo(QCoreApplication::applicationFilePath()).absoluteDir().absolutePath() + "/Cards/cardsDB."+locale +".json";
-
-    // init database from locale
-    if (CardsDb::initFromFile(carddbpath)) {
-        QMessageBox::critical(this, tr("HearthDuster"), tr("Failed to load cards database file! Program will now exit."));
-        QCoreApplication::exit();
-    }
 
 #ifdef __APPLE__
     if (Preferences::showMemoryReadingWarning()) {

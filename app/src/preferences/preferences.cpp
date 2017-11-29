@@ -28,3 +28,16 @@ void Preferences::setShowMemoryReadingWarning(bool value)
 {
     settings.setValue("showMemoryReadinWarning", value);
 }
+
+// strategy specific preferences
+// -----------------------------
+
+void Preferences::CardPopularityDustStrategy_setDataFetchDate(QDateTime time)
+{
+    settings.setValue("CardPopularityDustStrategy.dataFetchDate", time);
+}
+
+QDateTime Preferences::CardPopularityDustStrategy_dataFetchDate()
+{
+    return settings.value("CardPopularityDustStrategy.dataFetchDate", QDateTime::currentDateTime()).toDateTime();
+}
