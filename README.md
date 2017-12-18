@@ -4,10 +4,10 @@ Need some dust? Don't know what to disenchant? HearthDuster reads your card coll
 ![](screen2.png)
 
 ## Download
-The current version is 0.9.1 See the [release notes](ReleaseNotes.md) for latest changes.
+The current version is 0.9.2 See the [release notes](ReleaseNotes.md) for latest changes.
 
-- [MacOS](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.1/HearthDuster_0_9_1_macOS.dmg)
-- [Windows](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.1/HearthDuster_0_9_1_win64.zip)
+- [MacOS](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.2/HearthDuster_0_9_2_macOS.dmg)
+- [Windows](https://github.com/ifeherva/HearthDuster/releases/download/v0.9.2/HearthDuster_0_9_2_win64.zip)
 
 ## How does it work?
 HearthDuster reads your card collection and recommends cards that you can disenchant based on one of the following strategies:
