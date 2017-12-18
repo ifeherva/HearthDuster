@@ -73,14 +73,16 @@ void PopularityDataBase::deserialize(const QString& standardData, const QString&
                 entry["popularity"].toDouble(), entry["winrate"].toDouble(), entry["total"].toVariant().toULongLong());
 
         const Card* cardDef = CardsDb::cardFordbfId(card.dbfId);
-        if (dustStrategy->isStandard(cardDef)) {
-            standardCards[card.dbfId] = card;
-            totalPlayedCardsCountStandard += card.totalGames;
-            gamesPlayedStandard[card.dbfId] = card.totalGames;
-        } else {
-            nonStandardCards[card.dbfId] = card;
-            totalPlayedCardsCountNonStandard += card.totalGames;
-            gamesPlayedNonStandard[card.dbfId] = card.totalGames;
+        if (cardDef != NULL) {
+            if (dustStrategy->isStandard(cardDef)) {
+                standardCards[card.dbfId] = card;
+                totalPlayedCardsCountStandard += card.totalGames;
+                gamesPlayedStandard[card.dbfId] = card.totalGames;
+            } else {
+                nonStandardCards[card.dbfId] = card;
+                totalPlayedCardsCountNonStandard += card.totalGames;
+                gamesPlayedNonStandard[card.dbfId] = card.totalGames;
+            }
         }
     }
 
