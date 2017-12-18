@@ -15,6 +15,7 @@
 #include <QDir>
 #include <QCheckBox>
 #include <QMessageBox>
+#include <QFileDialog>
 #include "../db/cardsdb.h"
 #include <security.h>
 #include "../preferences/preferences.h"
@@ -30,6 +31,8 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     // build UI
     ui->setupUi(this);
+
+    connect(ui->actionExport, SIGNAL(triggered(bool)), this, SLOT(on_exportCollectionClicked()));
 
     // init database from locale
     QString locale = Preferences::getLocale();
@@ -263,6 +266,23 @@ void MainWindow::on_strategyError(const DustStrategy* strategy, QString error)
 void MainWindow::on_strategyMessage(const DustStrategy* strategy, QString message)
 {
     ui->statusBar->showMessage(strategy->name() + ": " + message, 3000);
+}
+
+void MainWindow::on_exportCollectionClicked()
+{
+    QString fileName = QFileDialog::getSaveFileName(this, tr("Export Collection"),
+                               "",
+                               tr("CSV (*.csv)"));
+    if (fileName != "") {
+        if (this->collection != NULL) {
+            bool success = this->collection->exportToFile(fileName, ExportFormat::CSV);
+            if (success) {
+                QMessageBox::information(this, "Export collection", "Successfully exported collection to " + fileName);
+            } else {
+                QMessageBox::critical(this, "Export collection", "Failed to export collection");
+            }
+        }
+    }
 }
 
 #ifdef __APPLE__

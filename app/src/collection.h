@@ -42,6 +42,10 @@ enum SynchError {
     UnknownError
 };
 
+enum ExportFormat {
+    CSV
+};
+
 class Collection
 {
 public:
@@ -54,6 +58,8 @@ public:
     SynchError sync();
 
     std::vector<DustStrategyResult> getCardsFor(const DustStrategy* const dustStrategy, bool excludeNonDustable = true);
+
+    bool exportToFile(const QString& fileName, const ExportFormat& exportFormat);
 
 private:
     std::map<QString, CollectionCard> m_cardcollection;

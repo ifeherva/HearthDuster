@@ -15,6 +15,8 @@
 #include "db/cardsdb.h"
 
 #include <Mirror.hpp>
+#include <QFile>
+#include <QTextStream>
 
 unsigned int DustStrategyResult::dustValue() {
 
@@ -100,5 +102,28 @@ std::vector<DustStrategyResult> Collection::getCardsFor(const DustStrategy* cons
         }
     }
     return result;
+}
+
+bool Collection::exportToFile(const QString& fileName, const ExportFormat& exportFormat)
+{
+    QFile file( fileName );
+    if (exportFormat == CSV) {
+        const auto delimiter = ",";
+        if (file.open(QIODevice::ReadWrite)) {
+            QTextStream stream(&file);
+            stream << "Name" << delimiter << "Normal" << delimiter << "Golden" << endl;
+            for (auto it : m_cardcollection) {
+                const Card* cardDef = CardsDb::cardForId(it.first);
+                if (!cardDef) continue;
+                stream << cardDef->name << delimiter << it.second.normalCount << delimiter << it.second.premiumCount << endl;
+            }
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+    return true;
 }
 

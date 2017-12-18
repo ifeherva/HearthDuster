@@ -113,6 +113,13 @@
      <height>22</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuCollection">
+    <property name="title">
+     <string>Collection</string>
+    </property>
+    <addaction name="actionExport"/>
+   </widget>
+   <addaction name="menuCollection"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSync">
@@ -121,6 +128,11 @@
    </property>
    <property name="toolTip">
     <string>Sync collection</string>
+   </property>
+  </action>
+  <action name="actionExport">
+   <property name="text">
+    <string>Export...</string>
    </property>
   </action>
  </widget>

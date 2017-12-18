@@ -62,6 +62,7 @@ public slots:
     void on_syncCompleted(int error);
     void on_strategyError(const DustStrategy* strategy, QString error);
     void on_strategyMessage(const DustStrategy* strategy, QString message);
+    void on_exportCollectionClicked();
 
 private slots:
 #ifdef __APPLE__
